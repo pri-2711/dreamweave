@@ -1,79 +1,340 @@
+# DreamWeave Brain 🧠✨
+
+An intelligent document ingestion and retrieval system that forms the AI backbone of the DreamWeave project.
+
+The system accepts multiple content formats, extracts information from them, structures the data, generates embeddings, and eventually enables context-aware conversational retrieval (RAG).
+
+---
+
+# System Architecture
+
+```text
 User Upload
-    │
-    ▼
+     │
+     ▼
 File Processor
-    │
-    ├── Image → OCR
-    ├── PDF → Text Extraction
-    ├── Note → Raw Text
-    │
-    ▼
-Text Content
-    │
-    ▼
+     │
+     ├── Image → OCR
+     ├── PDF → Text Extraction / OCR Fallback
+     ├── Notes → Raw Text
+     │
+     ▼
+Raw Text
+     │
+     ▼
+AI Cleanup / Structuring
+     │
+     ▼
+Clean Text
+     │
+     ▼
 Embedding Generator
-    │
-    ▼
+     │
+     ▼
 Vector Store
-    │
-    ▼
+     │
+     ▼
 Retriever
-    │
-    ▼
+     │
+     ▼
 LLM
-    │
-    ▼
+     │
+     ▼
 Answer
+```
 
-## STEPS
+---
 
-### Step 1: Upload content
+# Supported Upload Types
 
-1. Include only : images, pdfs, notes
+### Images
 
-2. Store locally in uploads
+* PNG
+* JPG / JPEG
+* WEBP
+* Other PIL-supported image formats
 
-### Step 2: Extract Text
+### Documents
 
-1. Images -> OCR : using tesseract
+* PDF (text PDFs)
+* Scanned PDFs (OCR fallback)
 
-2. PDF -> text extraction -> plain text: pymupdf or pypdf
+### Notes
 
-3. Notes -> already in text
+* Plain text files
+* User-entered notes
 
-### Step 3: Normalizing content
+---
 
-Content in same structure : JSON
+# Current Pipeline
 
-### Step 4: Creating Embeddings
+## Step 1 : Upload Content
 
-Using SentenceTransformer : Text -> Vectors
+Supported inputs:
 
-### Step 5: Store knowledge in Json format
+* Images
+* PDFs
+* Notes
 
-### Step 6: Semantic search : cosine similarity
+Files are stored locally in:
 
-For searching through records
+```text
+uploads/
+```
 
-### Step 7: RAG
+---
 
-Retrieving info using uploaded data 
+## Step 2 : Text Extraction
 
-1. Build prompt using uploaded data
+### Images
 
-2. Send to LLM
+```text
+Image
+↓
+Tesseract OCR
+↓
+Raw Text
+```
 
-3. LLM answers using retrieved context
+---
 
+### PDFs
 
-# FLOW OF SYSTEM :
+#### Text-based PDFs
 
+```text
+PDF
+↓
+Direct Text Extraction
+↓
+Raw Text
+```
+
+#### Scanned PDFs
+
+```text
+PDF
+↓
+No Text Found
+↓
+Convert Pages To Images
+↓
+OCR
+↓
+Raw Text
+```
+
+Temporary page images are created in the background using Python's `tempfile` module and automatically deleted after OCR.
+
+---
+
+### Notes
+
+```text
+Notes
+↓
+Raw Text
+```
+
+No extraction required.
+
+---
+
+# Step 3 : Document Normalization
+
+All extracted content is stored using a unified document structure.
+
+Example:
+
+```json
+{
+    "id": 1782210867,
+    "source": "image",
+    "filename": "test.png",
+
+    "raw_content": "...",
+    "clean_content": "",
+
+    "metadata": {
+        "ocr_used": true,
+        "page_count": 1,
+        "language": "en",
+        "ocr_engine": "tesseract"
+    },
+
+    "timestamp": "2026-06-23 16:04:27"
+}
+```
+
+---
+
+# Step 4 : AI Cleanup & Structuring (Upcoming)
+
+Pipeline:
+
+```text
+Raw Text
+↓
+LLM Cleanup
+↓
+Clean Text
+```
+
+Examples:
+
+* Reconstruct menus
+* Fix OCR errors
+* Preserve structure
+* Improve formatting
+* Enhance semantic quality before embedding generation
+
+Both `raw_content` and `clean_content` are preserved.
+
+---
+
+# Step 5 : Embedding Generation (Upcoming)
+
+```text
+Text
+↓
+SentenceTransformer
+↓
+Vector Embeddings
+```
+
+Embeddings will be generated primarily from:
+
+```text
+clean_content
+```
+
+with fallback to:
+
+```text
+raw_content
+```
+
+---
+
+# Step 6 : Vector Storage (Upcoming)
+
+Embeddings and metadata will initially be stored locally.
+
+Future migration:
+
+* PostgreSQL
+* pgvector
+
+---
+
+# Step 7 : Semantic Search (Upcoming)
+
+```text
+Query
+↓
+Embedding
+↓
+Cosine Similarity
+↓
+Relevant Documents
+```
+
+Purpose:
+
+* Intelligent search
+* Context retrieval
+* Recommendation engine support
+
+---
+
+# Step 8 : Retrieval-Augmented Generation (RAG)
+
+```text
+User Query
+↓
+Semantic Search
+↓
+Relevant Documents
+↓
+Prompt Construction
+↓
+LLM
+↓
+Answer
+```
+
+The LLM answers using only the retrieved context from uploaded data.
+
+---
+
+# OCR Roadmap
+
+## Current OCR Engine
+
+```text
+Tesseract OCR
+```
+
+Advantages:
+
+* Lightweight
+* Fast
+* Good for clean screenshots and documents
+
+---
+
+## Future OCR Engine
+
+```text
+EasyOCR
+```
+
+Potential use cases:
+
+* Stylized fonts
+* Menus
+* Posters
+* Multilingual text
+* Symbols and currencies
+* Complex backgrounds
+
+Future architecture:
+
+```text
+Image
+↓
+Simple Document?
+    ↓ yes → Tesseract
+    ↓ no
+       EasyOCR
+```
+
+---
+
+# Future Features
+
+* Automatic language detection
+* Multi-language OCR
+* Emoji support
+* Document chunking
+* Metadata extraction
+* Summarization
+* Recommendation engine
+* Vision boards
+* Collaborative AI search
+* Full RAG-powered assistant
+
+---
+
+# Final System Flow
+
+```text
 UPLOAD
    ↓
-TEXT EXTRACTION (raw text)
- ↓
+TEXT EXTRACTION (RAW TEXT)
+   ↓
 AI CLEANUP / STRUCTURING
- ↓
+   ↓
 CLEAN TEXT
    ↓
 EMBEDDINGS
@@ -85,3 +346,4 @@ SEMANTIC SEARCH
 RAG
    ↓
 CHAT RESPONSE
+```
