@@ -14,7 +14,17 @@ def image_ocr_menu():
             "id": int(datetime.now().timestamp()),
             "source": "image",
             "filename": os.path.basename(image_path),
-            "content": text,
+
+            "raw_content": text,
+            "clean_content": "",
+
+            "metadata": {
+                "ocr_used": True,
+                "page_count": 1,
+                "language": "en",
+                "ocr_engine": "tesseract"
+            },
+
             "timestamp": str(datetime.now())
         }
 
@@ -35,22 +45,28 @@ def pdf_menu():
     ).strip()
 
     try:
-        text = extract_text_from_pdf(
-            pdf_path
-        )
+        pdf_data = extract_text_from_pdf(pdf_path)
+
+        text = pdf_data["text"]
+        ocr_used = pdf_data["ocr_used"]
+        page_count = pdf_data["page_count"]
 
         document = {
-            "id": int(
-                datetime.now().timestamp()
-            ),
+            "id": int(datetime.now().timestamp()),
             "source": "pdf",
-            "filename": os.path.basename(
-                pdf_path
-            ),
-            "content": text,
-            "timestamp": str(
-                datetime.now()
-            )
+            "filename": os.path.basename(pdf_path),
+
+            "raw_content": text,
+            "clean_content": "",
+
+            "metadata": {
+                "ocr_used": ocr_used,
+                "page_count": page_count,
+                "language": "en",
+                "ocr_engine": "tesseract" if ocr_used else None
+            },
+
+            "timestamp": str(datetime.now())
         }
 
         save_document(document)
@@ -84,7 +100,7 @@ def main():
 
         elif choice == "2":
             pdf_menu()
-            
+
         elif choice == "3":
             print("\nGoodbye!")
             break

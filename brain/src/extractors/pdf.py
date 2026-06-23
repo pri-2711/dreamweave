@@ -1,5 +1,6 @@
 import fitz
 import os
+import tempfile
 
 from brain.src.extractors.image import (
     extract_text_from_image
@@ -9,6 +10,9 @@ from brain.src.extractors.image import (
 def extract_text_from_pdf(pdf_path):
 
     document = fitz.open(pdf_path)
+
+    page_count = len(document)
+    ocr_used = False
 
     text = ""
 
@@ -22,37 +26,48 @@ def extract_text_from_pdf(pdf_path):
     # If text exists, return it
     if text:
         document.close()
-        return text
+
+        return {
+            "text": text,
+            "ocr_used": ocr_used,
+            "page_count": page_count
+        }
 
     print("\nScanned PDF detected. Running OCR...\n")
 
-    # Create temp folder if needed
-    os.makedirs("temp", exist_ok=True)
-
+    ocr_used = True
     all_text = ""
 
-    # Convert pages to images and OCR them
-    for page_num in range(len(document)):
+    # Temporary folder gets deleted automatically
+    with tempfile.TemporaryDirectory() as temp_dir:
 
-        page = document.load_page(page_num)
+        for page_num in range(page_count):
 
-        pix = page.get_pixmap(dpi=300)
+            page = document.load_page(page_num)
 
-        image_path = (
-            f"temp/page_{page_num}.png"
-        )
+            # Higher DPI = better OCR
+            pix = page.get_pixmap(dpi=300)
 
-        pix.save(image_path)
-
-        page_text = (
-            extract_text_from_image(
-                image_path
+            image_path = os.path.join(
+                temp_dir,
+                f"page_{page_num}.png"
             )
-        )
 
-        all_text += page_text
-        all_text += "\n"
+            pix.save(image_path)
+
+            page_text = (
+                extract_text_from_image(
+                    image_path
+                )
+            )
+
+            all_text += page_text
+            all_text += "\n"
 
     document.close()
 
-    return all_text.strip()
+    return {
+        "text": all_text.strip(),
+        "ocr_used": ocr_used,
+        "page_count": page_count
+    }

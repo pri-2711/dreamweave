@@ -1,23 +1,44 @@
 [
     {
-        "id": 1782208126,
+        "id": 1782211543,
         "source": "image",
         "filename": "test.png",
-        "content": "hi there\nMUMBAI TRIP\n\nMumbai Café\nBudget: 500/-\n",
-        "timestamp": "2026-06-23 15:18:46.150702"
+        "raw_content": "hi there\nMUMBAI TRIP\n\nMumbai Café\nBudget: 500/-\n",
+        "clean_content": "",
+        "metadata": {
+            "ocr_used": true,
+            "page_count": 1,
+            "language": "en",
+            "ocr_engine": "tesseract"
+        },
+        "timestamp": "2026-06-23 16:15:43.217498"
     },
     {
-        "id": 1782208391,
+        "id": 1782211568,
         "source": "image",
         "filename": "menu1.png",
-        "content": "SANDWICH\n\nEXTRA:\n\nEgg Sandwich\n\nHam Sandwich\n\nHam & Cheese Sandwich\n\nHam & Egg Sandiwch\n\nTuna Sandwich\n\nCheese\nCheese Stick\nCheese Ball\nFrench Fries\nKikiam\nFishball\n\n35\n35\n45\n55\n45\n\n",
-        "timestamp": "2026-06-23 15:23:11.644009"
+        "raw_content": "SANDWICH\n\nEXTRA:\n\nEgg Sandwich\n\nHam Sandwich\n\nHam & Cheese Sandwich\n\nHam & Egg Sandiwch\n\nTuna Sandwich\n\nCheese\nCheese Stick\nCheese Ball\nFrench Fries\nKikiam\nFishball\n\n35\n35\n45\n55\n45\n\n",
+        "clean_content": "",
+        "metadata": {
+            "ocr_used": true,
+            "page_count": 1,
+            "language": "en",
+            "ocr_engine": "tesseract"
+        },
+        "timestamp": "2026-06-23 16:16:08.075543"
     },
     {
-        "id": 1782210345,
+        "id": 1782211598,
         "source": "pdf",
         "filename": "menu2.pdf",
-        "content": "MENU\n\nIndian Menu\n\nVegetarian Non Vegetarian\nAppetizers Appetizers\n\nMix Pakoras Chicken Kaali Mirch\n$3.00 $15.00\n\nPaneer Mala Tikka Chicken Kalmi Kebab\n$5.00 $11.00\n\nPapadum Masala Mutton Samosa\n$10.00 $8.00\n\nBoondi Raita Tandoori Chicken Wings\n$7.00 $13.00\n\nBread\n\nMasala Kulcha Stuffed Faratha Garlic Naan\n$5.00 $7.00 $6.00\n\nIndian Food Restaurant\nC. de Nufiez de Arce, 15, 28012 Madrid, Spain\n\nwww.raamsfood.co\n\n\nMILK\nBUBBLE TEA\n\nBelgian Chocolate 270) / 2001)\n\nHee eee AEE\nDubai Chocolate Kunafa 2904) / 220)\nES\n\n—_—— LT\n\nSalted Caramel Cookie Dough 72970(#)/220%)",
-        "timestamp": "2026-06-23 15:55:45.743312"
+        "raw_content": "MENU\n\nIndian Menu\n\nVegetarian Non Vegetarian\nAppetizers Appetizers\n\nMix Pakoras Chicken Kaali Mirch\n$3.00 $15.00\n\nPaneer Mala Tikka Chicken Kalmi Kebab\n$5.00 $11.00\n\nPapadum Masala Mutton Samosa\n$10.00 $8.00\n\nBoondi Raita Tandoori Chicken Wings\n$7.00 $13.00\n\nBread\n\nMasala Kulcha Stuffed Faratha Garlic Naan\n$5.00 $7.00 $6.00\n\nIndian Food Restaurant\nC. de Nufiez de Arce, 15, 28012 Madrid, Spain\n\nwww.raamsfood.co\n\n\nMILK\nBUBBLE TEA\n\nBelgian Chocolate 270) / 2001)\n\nHee eee AEE\nDubai Chocolate Kunafa 2904) / 220)\nES\n\n—_—— LT\n\nSalted Caramel Cookie Dough 72970(#)/220%)",
+        "clean_content": "",
+        "metadata": {
+            "ocr_used": true,
+            "page_count": 2,
+            "language": "en",
+            "ocr_engine": "tesseract"
+        },
+        "timestamp": "2026-06-23 16:16:38.001823"
     }
 ]
