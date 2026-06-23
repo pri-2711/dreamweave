@@ -1,5 +1,7 @@
 from brain.src.extractors.image import extract_text_from_image
-
+from brain.src.document_store import save_document
+from datetime import datetime
+import os
 
 def image_ocr_menu():
     image_path = input("\nEnter image path: ").strip()
@@ -7,8 +9,20 @@ def image_ocr_menu():
     try:
         text = extract_text_from_image(image_path)
 
+        document = {
+            "id": int(datetime.now().timestamp()),
+            "source": "image",
+            "filename": os.path.basename(image_path),
+            "content": text,
+            "timestamp": str(datetime.now())
+        }
+
+        save_document(document)
+
         print("\n===== EXTRACTED TEXT =====\n")
         print(text)
+
+        print("\nDocument saved successfully!")
 
     except Exception as e:
         print(f"\nError: {e}")
