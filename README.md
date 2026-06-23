@@ -70,7 +70,11 @@ Retrieving info using uploaded data
 
 UPLOAD
    ↓
-TEXT EXTRACTION
+TEXT EXTRACTION (raw text)
+ ↓
+AI CLEANUP / STRUCTURING
+ ↓
+CLEAN TEXT
    ↓
 EMBEDDINGS
    ↓
