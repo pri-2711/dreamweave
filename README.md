@@ -168,82 +168,71 @@ Example:
 
 ---
 
-# Step 4 : AI Cleanup & Structuring (Upcoming)
+# Step 4 : AI Cleanup & Structuring
 
 Pipeline:
 
 ```text
 Raw Text
 ↓
-LLM Cleanup
+LLM / Heuristic Cleaner
 ↓
 Clean Text
 ```
 
-Examples:
-
-* Reconstruct menus
-* Fix OCR errors
-* Preserve structure
-* Improve formatting
-* Enhance semantic quality before embedding generation
-
-Both `raw_content` and `clean_content` are preserved.
+Features:
+* Reconstruct menus and lists
+* Remove OCR artifacts & hyphenated line breaks
+* Preserve structure & section headers
+* Dual Mode: Uses Gemini/OpenAI API if key present, or local NLP heuristic cleaner
+* Both `raw_content` and `clean_content` are preserved in `brain/data/knowledge.json`
 
 ---
 
-# Step 5 : Embedding Generation (Upcoming)
+# Step 5 : Embedding Generation
 
 ```text
-Text
+Clean Content (or Raw Fallback)
 ↓
-SentenceTransformer
+Text Chunking
 ↓
-Vector Embeddings
+Vector Embeddings (TF-IDF / Dense Feature Space)
+↓
+Normalized Vectors
 ```
 
-Embeddings will be generated primarily from:
-
-```text
-clean_content
-```
-
-with fallback to:
-
-```text
-raw_content
-```
+Chunks text into semantic paragraphs and generates vector representations for indexed document segments.
 
 ---
 
-# Step 6 : Vector Storage (Upcoming)
+# Step 6 : Vector Storage
 
-Embeddings and metadata will initially be stored locally.
+Embeddings, document IDs, chunk text, and vocabulary metadata are stored locally in:
 
-Future migration:
+```text
+brain/data/vectors.json
+```
 
-* PostgreSQL
-* pgvector
+Future migration path:
+* PostgreSQL + pgvector
 
 ---
 
-# Step 7 : Semantic Search (Upcoming)
+# Step 7 : Semantic Search
 
 ```text
 Query
 ↓
-Embedding
+Query Embedding
 ↓
-Cosine Similarity
+Cosine Similarity Match
 ↓
-Relevant Documents
+Top-K Relevant Chunks
 ```
 
 Purpose:
-
-* Intelligent search
-* Context retrieval
-* Recommendation engine support
+* Fast context search
+* Accurate document snippet matching with relevance scoring
 
 ---
 
@@ -252,18 +241,17 @@ Purpose:
 ```text
 User Query
 ↓
-Semantic Search
+Vector Search (Top-K Context Chunks)
 ↓
-Relevant Documents
+Grounded Context Prompt Construction
 ↓
-Prompt Construction
+LLM / Grounded Answer Synthesizer
 ↓
-LLM
-↓
-Answer
+Cited Answer
 ```
 
-The LLM answers using only the retrieved context from uploaded data.
+Answers user queries strictly grounded in retrieved document context with source citations.
+
 
 ---
 

@@ -4,7 +4,7 @@
         "source": "image",
         "filename": "test.png",
         "raw_content": "hi there\nMUMBAI TRIP\n\nMumbai Café\nBudget: 500/-\n",
-        "clean_content": "",
+        "clean_content": "hi there MUMBAI TRIP\n\nMumbai Café Budget: 500/-",
         "metadata": {
             "ocr_used": true,
             "page_count": 1,
@@ -18,7 +18,7 @@
         "source": "image",
         "filename": "menu1.png",
         "raw_content": "SANDWICH\n\nEXTRA:\n\nEgg Sandwich\n\nHam Sandwich\n\nHam & Cheese Sandwich\n\nHam & Egg Sandiwch\n\nTuna Sandwich\n\nCheese\nCheese Stick\nCheese Ball\nFrench Fries\nKikiam\nFishball\n\n35\n35\n45\n55\n45\n\n",
-        "clean_content": "",
+        "clean_content": "SANDWICH\n\nEXTRA:\n\nEgg Sandwich\n\nHam Sandwich\n\nHam & Cheese Sandwich\n\nHam & Egg Sandiwch\n\nTuna Sandwich\n\nCheese Cheese Stick Cheese Ball French Fries Kikiam Fishball\n\n35 35 45 55 45",
         "metadata": {
             "ocr_used": true,
             "page_count": 1,
@@ -32,7 +32,7 @@
         "source": "pdf",
         "filename": "menu2.pdf",
         "raw_content": "MENU\n\nIndian Menu\n\nVegetarian Non Vegetarian\nAppetizers Appetizers\n\nMix Pakoras Chicken Kaali Mirch\n$3.00 $15.00\n\nPaneer Mala Tikka Chicken Kalmi Kebab\n$5.00 $11.00\n\nPapadum Masala Mutton Samosa\n$10.00 $8.00\n\nBoondi Raita Tandoori Chicken Wings\n$7.00 $13.00\n\nBread\n\nMasala Kulcha Stuffed Faratha Garlic Naan\n$5.00 $7.00 $6.00\n\nIndian Food Restaurant\nC. de Nufiez de Arce, 15, 28012 Madrid, Spain\n\nwww.raamsfood.co\n\n\nMILK\nBUBBLE TEA\n\nBelgian Chocolate 270) / 2001)\n\nHee eee AEE\nDubai Chocolate Kunafa 2904) / 220)\nES\n\n—_—— LT\n\nSalted Caramel Cookie Dough 72970(#)/220%)",
-        "clean_content": "",
+        "clean_content": "MENU\n\nIndian Menu\n\nVegetarian Non Vegetarian Appetizers Appetizers\n\nMix Pakoras Chicken Kaali Mirch $3.00 $15.00\n\nPaneer Mala Tikka Chicken Kalmi Kebab $5.00 $11.00\n\nPapadum Masala Mutton Samosa $10.00 $8.00\n\nBoondi Raita Tandoori Chicken Wings $7.00 $13.00\n\nBread\n\nMasala Kulcha Stuffed Faratha Garlic Naan $5.00 $7.00 $6.00\n\nIndian Food Restaurant C. de Nufiez de Arce, 15, 28012 Madrid, Spain\n\nwww.raamsfood.co\n\nMILK BUBBLE TEA\n\nBelgian Chocolate 270) / 2001)\n\nHee eee AEE Dubai Chocolate Kunafa 2904) / 220) ES\n\n—_—— LT\n\nSalted Caramel Cookie Dough 72970(#)/220%)",
         "metadata": {
             "ocr_used": true,
             "page_count": 2,
@@ -40,5 +40,57 @@
             "ocr_engine": "tesseract"
         },
         "timestamp": "2026-06-23 16:16:38.001823"
+    },
+    {
+        "id": 999999,
+        "source": "note",
+        "filename": "user_note.txt",
+        "raw_content": "DreamWeave Project Specification:\nDreamWeave is an intelligent document ingestion and retrieval system.\nIt supports Image OCR, PDF text extraction, AI text cleanup, vector embeddings, semantic search using cosine similarity, and RAG conversational search.",
+        "clean_content": "DreamWeave Project Specification: DreamWeave is an intelligent document ingestion and retrieval system. It supports Image OCR, PDF text extraction, AI text cleanup, vector embeddings, semantic search using cosine similarity, and RAG conversational search.",
+        "metadata": {
+            "ocr_used": false,
+            "page_count": 1,
+            "language": "en"
+        },
+        "timestamp": "2026-09-17 10:00:00"
+    },
+    {
+        "id": 999999,
+        "source": "note",
+        "filename": "user_note.txt",
+        "raw_content": "DreamWeave Project Specification:\nDreamWeave is an intelligent document ingestion and retrieval system.\nIt supports Image OCR, PDF text extraction, AI text cleanup, vector embeddings, semantic search using cosine similarity, and RAG conversational search.",
+        "clean_content": "",
+        "metadata": {
+            "ocr_used": false,
+            "page_count": 1,
+            "language": "en"
+        },
+        "timestamp": "2026-09-17 10:00:00"
+    },
+    {
+        "id": 999999,
+        "source": "note",
+        "filename": "user_note.txt",
+        "raw_content": "DreamWeave Project Specification:\nDreamWeave is an intelligent document ingestion and retrieval system.\nIt supports Image OCR, PDF text extraction, AI text cleanup, vector embeddings, semantic search using cosine similarity, and RAG conversational search.",
+        "clean_content": "",
+        "metadata": {
+            "ocr_used": false,
+            "page_count": 1,
+            "language": "en"
+        },
+        "timestamp": "2026-09-17 10:00:00"
+    },
+    {
+        "id": 999999,
+        "source": "note",
+        "filename": "user_note.txt",
+        "raw_content": "DreamWeave Project Specification:\nDreamWeave is an intelligent document ingestion and retrieval system.\nIt supports Image OCR, PDF text extraction, AI text cleanup, vector embeddings, semantic search using cosine similarity, and RAG conversational search.",
+        "clean_content": "",
+        "metadata": {
+            "ocr_used": false,
+            "page_count": 1,
+            "language": "en"
+        },
+        "timestamp": "2026-09-17 10:00:00"
     }
 ]

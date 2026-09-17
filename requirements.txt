@@ -1,3 +1,5 @@
 pillow
 pytesseract
 pymupdf
+numpy
+scikit-learn
