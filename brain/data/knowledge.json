@@ -92,5 +92,18 @@
             "language": "en"
         },
         "timestamp": "2026-09-17 10:00:00"
+    },
+    {
+        "id": 999999,
+        "source": "note",
+        "filename": "user_note.txt",
+        "raw_content": "DreamWeave Project Specification:\nDreamWeave is an intelligent document ingestion and retrieval system.\nIt supports Image OCR, PDF text extraction, AI text cleanup, vector embeddings, semantic search using cosine similarity, and RAG conversational search.",
+        "clean_content": "",
+        "metadata": {
+            "ocr_used": false,
+            "page_count": 1,
+            "language": "en"
+        },
+        "timestamp": "2026-09-17 10:00:00"
     }
 ]

@@ -3,3 +3,5 @@ pytesseract
 pymupdf
 numpy
 scikit-learn
+fastapi
+uvicorn
