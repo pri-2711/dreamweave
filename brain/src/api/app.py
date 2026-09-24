@@ -1,4 +1,9 @@
-from fastapi import FastAPI
+import logging
+from fastapi import FastAPI, HTTPException, status
+from fastapi.responses import JSONResponse
+from brain.src.database.connection import ping_database
+
+logger = logging.getLogger("dreamweave.api")
 
 app = FastAPI(
     title="DreamWeave Brain API",
@@ -11,3 +16,22 @@ app = FastAPI(
 def health_check():
     """Simple health check endpoint."""
     return {"status": "ok"}
+
+
+@app.get("/db-health")
+def db_health_check():
+    """Pings MongoDB database and returns connection status."""
+    try:
+        result = ping_database()
+        return result
+    except Exception as e:
+        # Log server-side error cleanly without exposing credentials
+        logger.error(f"Database connection error: {type(e).__name__} - {str(e)}")
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={
+                "status": "error",
+                "message": "Database connection failed",
+                "error_type": type(e).__name__
+            }
+        )

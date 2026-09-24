@@ -1,0 +1,16 @@
+# Environment variables and secrets
+.env
+brain/.env
+*.env
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Local data and temp files
+brain/data/*.json
+uploads/
+brain/uploads/
+scratch/
