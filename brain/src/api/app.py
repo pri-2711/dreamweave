@@ -1,56 +1,36 @@
+"""
+DreamWeave Brain FastAPI Application.
+"""
+
 import logging
-from fastapi import FastAPI, HTTPException, status
-from fastapi.responses import JSONResponse
-from brain.src.database.connection import ping_database, init_database
-from brain.src.database.collections import ALL_COLLECTIONS
+from fastapi import FastAPI
+from brain.src.api.routes import (
+    health,
+    spaces,
+    content,
+    knowledge,
+    ai_content,
+    ai_chat,
+    vision_boards,
+    plans,
+    conversations
+)
 
 logger = logging.getLogger("dreamweave.api")
 
 app = FastAPI(
     title="DreamWeave Brain API",
-    description="Backend API foundation for DreamWeave document processing and retrieval.",
+    description="Backend API foundation for DreamWeave workspace, content, and intelligence.",
     version="1.0.0"
 )
 
-
-@app.get("/health")
-def health_check():
-    """Simple health check endpoint."""
-    return {"status": "ok"}
-
-
-@app.get("/db-health")
-def db_health_check():
-    """Pings MongoDB database and returns connection status."""
-    try:
-        result = ping_database()
-        return result
-    except Exception as e:
-        # Log server-side error cleanly without exposing credentials
-        logger.error(f"Database connection error: {type(e).__name__} - {str(e)}")
-        return JSONResponse(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={
-                "status": "error",
-                "message": "Database connection failed",
-                "error_type": type(e).__name__
-            }
-        )
-
-
-@app.post("/db-init")
-def db_init_endpoint():
-    """Trigger programmatic database initialization and index creation."""
-    try:
-        res = init_database()
-        return res
-    except Exception as e:
-        logger.error(f"Database initialization failed: {type(e).__name__} - {str(e)}")
-        return JSONResponse(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={
-                "status": "error",
-                "message": f"Database initialization failed: {str(e)}",
-                "error_type": type(e).__name__
-            }
-        )
+# Register API Routers
+app.include_router(health.router)
+app.include_router(spaces.router)
+app.include_router(content.router)
+app.include_router(knowledge.router)
+app.include_router(ai_content.router)
+app.include_router(ai_chat.router)
+app.include_router(vision_boards.router)
+app.include_router(plans.router)
+app.include_router(conversations.router)
