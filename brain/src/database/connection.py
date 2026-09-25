@@ -29,14 +29,20 @@ def get_mongo_client() -> MongoClient:
     if _client is None:
         uri = get_mongo_uri()
         kwargs = {"serverSelectionTimeoutMS": 5000}
-        try:
-            import certifi
-            kwargs["tlsCAFile"] = certifi.where()
-        except ImportError:
-            pass
+
+        # Handle TLS options safely
+        tls_insecure = os.getenv("MONGODB_TLS_INSECURE", "").strip().lower() == "true"
+        if tls_insecure:
+            kwargs["tlsAllowInvalidCertificates"] = True
+        else:
+            try:
+                import certifi
+                kwargs["tlsCAFile"] = certifi.where()
+            except ImportError:
+                pass
+
         _client = MongoClient(uri, **kwargs)
     return _client
-
 
 
 def get_database():
@@ -51,9 +57,27 @@ def ping_database():
     Returns dict status on success or raises Exception on failure.
     """
     client = get_mongo_client()
-    # Ping admin command
     client.admin.command("ping")
     return {
         "status": "ok",
         "database": get_database_name()
     }
+
+
+def init_database():
+    """
+    Initialize database connection and programmatically ensure all collection indexes exist.
+    """
+    try:
+        from brain.src.database.indexes import ensure_indexes
+        db = get_database()
+        indexes_result = ensure_indexes(db)
+        logger.info("Database initialization and index creation completed successfully.")
+        return {
+            "status": "ok",
+            "database": get_database_name(),
+            "indexes": indexes_result
+        }
+    except Exception as e:
+        logger.error(f"Database initialization error: {e}")
+        raise

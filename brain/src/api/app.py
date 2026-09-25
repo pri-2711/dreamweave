@@ -1,7 +1,8 @@
 import logging
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import JSONResponse
-from brain.src.database.connection import ping_database
+from brain.src.database.connection import ping_database, init_database
+from brain.src.database.collections import ALL_COLLECTIONS
 
 logger = logging.getLogger("dreamweave.api")
 
@@ -32,6 +33,24 @@ def db_health_check():
             content={
                 "status": "error",
                 "message": "Database connection failed",
+                "error_type": type(e).__name__
+            }
+        )
+
+
+@app.post("/db-init")
+def db_init_endpoint():
+    """Trigger programmatic database initialization and index creation."""
+    try:
+        res = init_database()
+        return res
+    except Exception as e:
+        logger.error(f"Database initialization failed: {type(e).__name__} - {str(e)}")
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={
+                "status": "error",
+                "message": f"Database initialization failed: {str(e)}",
                 "error_type": type(e).__name__
             }
         )
