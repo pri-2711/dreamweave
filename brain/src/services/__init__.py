@@ -9,6 +9,8 @@ from brain.src.services import ai_content_service
 from brain.src.services import vision_boards_service
 from brain.src.services import plans_service
 from brain.src.services import conversations_service
+from brain.src.services import auth_service
+from brain.src.services import authorization
 
 __all__ = [
     "spaces_service",
@@ -18,4 +20,8 @@ __all__ = [
     "vision_boards_service",
     "plans_service",
     "conversations_service",
+    "auth_service",
+    "authorization",
 ]
+
+

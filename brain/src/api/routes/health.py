@@ -39,6 +39,16 @@ def db_health_check():
 @router.post("/db-init")
 def db_init_endpoint():
     """Trigger programmatic database initialization and index creation."""
+    from brain.src import config
+    if config.ENVIRONMENT in ("production", "prod"):
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN,
+            content={
+                "status": "error",
+                "message": "/db-init is disabled in production environments."
+            }
+        )
+
     try:
         res = init_database()
         return res
@@ -52,3 +62,4 @@ def db_init_endpoint():
                 "error_type": type(e).__name__
             }
         )
+

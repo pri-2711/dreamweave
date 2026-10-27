@@ -28,15 +28,21 @@ def create_vision_board(
 
 
 @router.get("/spaces/{space_id}/vision-boards", status_code=status.HTTP_200_OK)
-def list_vision_boards(space_id: str):
+def list_vision_boards(
+    space_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """List vision boards in a space."""
-    return services.vision_boards_service.list_vision_boards(space_id)
+    return services.vision_boards_service.list_vision_boards(space_id, current_user_id)
 
 
 @router.get("/vision-boards/{board_id}", status_code=status.HTTP_200_OK)
-def get_vision_board(board_id: str):
+def get_vision_board(
+    board_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """Get a vision board by ID."""
-    return services.vision_boards_service.get_vision_board(board_id)
+    return services.vision_boards_service.get_vision_board(board_id, current_user_id)
 
 
 @router.patch("/vision-boards/{board_id}", status_code=status.HTTP_200_OK)
@@ -71,9 +77,12 @@ def create_vision_board_item(
 
 
 @router.get("/vision-boards/{board_id}/items", status_code=status.HTTP_200_OK)
-def list_vision_board_items(board_id: str):
+def list_vision_board_items(
+    board_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """List all items placed on a vision board."""
-    return services.vision_boards_service.list_vision_board_items(board_id)
+    return services.vision_boards_service.list_vision_board_items(board_id, current_user_id)
 
 
 @router.patch("/vision-board-items/{item_id}", status_code=status.HTTP_200_OK)

@@ -12,21 +12,18 @@ from brain.src.utils.serialization import parse_object_id, serialize_doc, serial
 
 
 def create_content_item(data: ContentCreate, current_user_id: str) -> Dict[str, Any]:
-    """Create a new content item."""
+    """Create a new content item (requires editor role in space)."""
     if data.type not in VALID_CONTENT_TYPES:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=f"Invalid content type '{data.type}'. Must be one of {sorted(list(VALID_CONTENT_TYPES))}."
         )
 
-    sid = parse_object_id(data.space_id, param_name="space_id")
-    space = spaces_repo.get_space_by_id(sid)
-    if not space:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Space with id '{data.space_id}' not found."
-        )
+    # Permission check: user must be editor or owner in space
+    from brain.src.services.authorization import check_space_access
+    check_space_access(data.space_id, current_user_id, required_role="editor")
 
+    sid = parse_object_id(data.space_id, param_name="space_id")
     uid = parse_object_id(current_user_id, param_name="user_id")
     asset_oid = parse_object_id(data.asset_id, param_name="asset_id") if data.asset_id else None
 
@@ -60,8 +57,8 @@ def create_content_item(data: ContentCreate, current_user_id: str) -> Dict[str, 
     return serialize_doc(doc)
 
 
-def get_content_item(content_id: str) -> Dict[str, Any]:
-    """Get a content item by ID."""
+def get_content_item(content_id: str, current_user_id: Optional[str] = None) -> Dict[str, Any]:
+    """Get a content item by ID (requires viewer permission in item's space)."""
     cid = parse_object_id(content_id, param_name="content_id")
     item = content_repo.get_content_item_by_id(cid)
     if not item:
@@ -69,6 +66,11 @@ def get_content_item(content_id: str) -> Dict[str, Any]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Content item with id '{content_id}' not found."
         )
+
+    if current_user_id and item.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(item["space_id"]), current_user_id, required_role="viewer")
+
     return serialize_doc(item)
 
 
@@ -76,9 +78,14 @@ def list_content_items(
     space_id: Optional[str] = None,
     item_type: Optional[str] = None,
     is_favourite: Optional[bool] = None,
-    is_archived: Optional[bool] = None
+    is_archived: Optional[bool] = None,
+    current_user_id: Optional[str] = None
 ) -> List[Dict[str, Any]]:
-    """List content items filtered by space_id, type, favourite, archived."""
+    """List content items filtered by space_id, type, favourite, archived (requires viewer role)."""
+    if space_id and current_user_id:
+        from brain.src.services.authorization import check_space_access
+        check_space_access(space_id, current_user_id, required_role="viewer")
+
     sid = parse_object_id(space_id, param_name="space_id") if space_id else None
     items = content_repo.list_content_items(
         space_id=sid,
@@ -90,7 +97,7 @@ def list_content_items(
 
 
 def update_content_item(content_id: str, data: ContentUpdate, current_user_id: str) -> Dict[str, Any]:
-    """Update fields of a content item."""
+    """Update fields of a content item (requires editor role)."""
     cid = parse_object_id(content_id, param_name="content_id")
     existing = content_repo.get_content_item_by_id(cid)
     if not existing:
@@ -98,6 +105,10 @@ def update_content_item(content_id: str, data: ContentUpdate, current_user_id: s
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Content item with id '{content_id}' not found."
         )
+
+    if existing.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(existing["space_id"]), current_user_id, required_role="editor")
 
     updates = {}
     if data.title is not None:
@@ -134,7 +145,7 @@ def update_content_item(content_id: str, data: ContentUpdate, current_user_id: s
 
 
 def delete_content_item(content_id: str, current_user_id: str) -> Dict[str, Any]:
-    """Delete a content item by ID."""
+    """Delete a content item by ID (requires editor role)."""
     cid = parse_object_id(content_id, param_name="content_id")
     existing = content_repo.get_content_item_by_id(cid)
     if not existing:
@@ -143,5 +154,10 @@ def delete_content_item(content_id: str, current_user_id: str) -> Dict[str, Any]
             detail=f"Content item with id '{content_id}' not found."
         )
 
+    if existing.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(existing["space_id"]), current_user_id, required_role="editor")
+
     content_repo.delete_content_item(cid)
     return {"message": f"Content item '{content_id}' successfully deleted."}
+

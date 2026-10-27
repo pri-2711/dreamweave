@@ -24,6 +24,7 @@ from brain.src.database.collections import (
     COLLECTION_CONVERSATIONS,
     COLLECTION_MESSAGES,
     COLLECTION_ACTIVITY,
+    COLLECTION_REVOKED_TOKENS,
 )
 
 logger = logging.getLogger("dreamweave.database.indexes")
@@ -105,12 +106,16 @@ INDEX_SPECS: Dict[str, List[Dict[str, Any]]] = {
         {"keys": [("user_id", ASCENDING)]},
         {"keys": [("created_at", DESCENDING)]},
     ],
+    COLLECTION_REVOKED_TOKENS: [
+        {"keys": [("jti", ASCENDING)], "unique": True},
+        {"keys": [("expires_at", ASCENDING)], "expireAfterSeconds": 0},
+    ],
 }
 
 
 def ensure_indexes(db=None) -> Dict[str, List[str]]:
     """
-    Programmatically create all indexes across the 16 conceptual collections.
+    Programmatically create all indexes across collections.
     Can be run safely multiple times (idempotent).
     Returns a dict mapping collection names to list of index names.
     """
@@ -123,9 +128,13 @@ def ensure_indexes(db=None) -> Dict[str, List[str]]:
         created_for_coll = []
         for spec in specs:
             keys = spec["keys"]
-            unique = spec.get("unique", False)
+            kwargs = {}
+            if "unique" in spec:
+                kwargs["unique"] = spec["unique"]
+            if "expireAfterSeconds" in spec:
+                kwargs["expireAfterSeconds"] = spec["expireAfterSeconds"]
             try:
-                index_name = collection.create_index(keys, unique=unique)
+                index_name = collection.create_index(keys, **kwargs)
                 created_for_coll.append(index_name)
                 logger.debug(f"Index '{index_name}' ensured for collection '{coll_name}'")
             except Exception as e:

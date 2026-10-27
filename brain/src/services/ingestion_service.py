@@ -37,10 +37,17 @@ def ingest_content_item(content_id: str, current_user_id: Optional[str] = None) 
 
     space_id = content_item.get("space_id")
     user_id = content_item.get("user_id")
+
+    # Enforce Space membership / permissions
+    if current_user_id and space_id:
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(space_id), current_user_id, required_role="editor")
+
     item_type = content_item.get("type", "other")
     title = content_item.get("title", "")
     description = content_item.get("description", "")
     asset_id = content_item.get("asset_id")
+
 
     # Step 1: Extraction
     raw_text = ""

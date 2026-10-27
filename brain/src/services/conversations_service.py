@@ -9,10 +9,12 @@ from brain.src.database.repositories import spaces as spaces_repo
 from brain.src.database.repositories import activity as activity_repo
 from brain.src.schemas.conversations import ConversationCreate, MessageCreate
 from brain.src.utils.serialization import parse_object_id, serialize_doc, serialize_docs
+from brain.src.services.authorization import check_space_access
 
 
 def create_conversation(space_id: str, data: ConversationCreate, current_user_id: str) -> Dict[str, Any]:
     """Create a new Space AI conversation."""
+    check_space_access(space_id, current_user_id, "editor")
     sid = parse_object_id(space_id, param_name="space_id")
     space = spaces_repo.get_space_by_id(sid)
     if not space:
@@ -27,14 +29,16 @@ def create_conversation(space_id: str, data: ConversationCreate, current_user_id
     return serialize_doc(doc)
 
 
-def list_conversations(space_id: str) -> List[Dict[str, Any]]:
+def list_conversations(space_id: str, current_user_id: Optional[str] = None) -> List[Dict[str, Any]]:
     """List conversations in a space."""
+    if current_user_id:
+        check_space_access(space_id, current_user_id, "viewer")
     sid = parse_object_id(space_id, param_name="space_id")
     conversations = conv_repo.list_conversations_by_space(sid)
     return serialize_docs(conversations)
 
 
-def get_conversation(conversation_id: str) -> Dict[str, Any]:
+def get_conversation(conversation_id: str, current_user_id: Optional[str] = None) -> Dict[str, Any]:
     """Get conversation details by ID."""
     cid = parse_object_id(conversation_id, param_name="conversation_id")
     conv = conv_repo.get_conversation_by_id(cid)
@@ -43,6 +47,8 @@ def get_conversation(conversation_id: str) -> Dict[str, Any]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Conversation with id '{conversation_id}' not found."
         )
+    if current_user_id:
+        check_space_access(conv["space_id"], current_user_id, "viewer")
     return serialize_doc(conv)
 
 
@@ -55,6 +61,7 @@ def add_message(conversation_id: str, data: MessageCreate, current_user_id: str)
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Conversation with id '{conversation_id}' not found."
         )
+    check_space_access(conv["space_id"], current_user_id, "editor")
 
     cnt_oids = [parse_object_id(i, param_name="content_id") for i in (data.content_ids or [])]
     knw_oids = [parse_object_id(i, param_name="knowledge_id") for i in (data.knowledge_ids or [])]
@@ -72,7 +79,7 @@ def add_message(conversation_id: str, data: MessageCreate, current_user_id: str)
     return serialize_doc(doc)
 
 
-def list_messages(conversation_id: str) -> List[Dict[str, Any]]:
+def list_messages(conversation_id: str, current_user_id: Optional[str] = None) -> List[Dict[str, Any]]:
     """List messages in a conversation."""
     cid = parse_object_id(conversation_id, param_name="conversation_id")
     conv = conv_repo.get_conversation_by_id(cid)
@@ -81,6 +88,8 @@ def list_messages(conversation_id: str) -> List[Dict[str, Any]]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Conversation with id '{conversation_id}' not found."
         )
+    if current_user_id:
+        check_space_access(conv["space_id"], current_user_id, "viewer")
 
     messages = conv_repo.list_messages_by_conversation(cid)
     return serialize_docs(messages)

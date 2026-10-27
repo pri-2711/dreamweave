@@ -32,6 +32,7 @@ from brain.src.database.collections import (
     COLLECTION_CONVERSATIONS,
     COLLECTION_MESSAGES,
     COLLECTION_ACTIVITY,
+    COLLECTION_REVOKED_TOKENS,
 )
 from brain.src.database.indexes import INDEX_SPECS
 from brain.src.database.models import (
@@ -51,6 +52,7 @@ from brain.src.database.models import (
     build_conversation_doc,
     build_message_doc,
     build_activity_doc,
+    build_revoked_token_doc,
     to_object_id
 )
 from brain.src.document_store import get_all_documents
@@ -61,20 +63,21 @@ from brain.src.rag.rag_engine import answer_rag_query
 
 class TestDatabaseArchitecture(unittest.TestCase):
 
-    def test_16_collections_exist(self):
-        """Verify all 16 conceptual collections are present in ALL_COLLECTIONS list."""
+    def test_all_collections_exist(self):
+        """Verify all collections including revoked_tokens are present in ALL_COLLECTIONS list."""
         expected_collections = {
             "users", "spaces", "space_members", "content_items",
             "assets", "knowledge", "chunks", "ai_content",
             "ai_generations", "vision_boards", "vision_board_items",
-            "plans", "tasks", "conversations", "messages", "activity"
+            "plans", "tasks", "conversations", "messages", "activity",
+            "revoked_tokens"
         }
-        self.assertEqual(len(ALL_COLLECTIONS), 16)
+        self.assertEqual(len(ALL_COLLECTIONS), 17)
         self.assertEqual(set(ALL_COLLECTIONS), expected_collections)
 
     def test_index_specifications(self):
-        """Verify all 16 collections have required index specifications configured."""
-        self.assertEqual(len(INDEX_SPECS), 16)
+        """Verify all collections have required index specifications configured."""
+        self.assertEqual(len(INDEX_SPECS), 17)
 
         # Verify users email unique index
         users_specs = INDEX_SPECS[COLLECTION_USERS]
@@ -92,8 +95,13 @@ class TestDatabaseArchitecture(unittest.TestCase):
         ai_gen_keys = [spec["keys"] for spec in ai_gen_specs]
         self.assertIn([("user_id", 1), ("type", 1), ("created_at", -1)], ai_gen_keys)
 
+        # Verify revoked_tokens indexes (unique jti + TTL expires_at)
+        revoked_specs = INDEX_SPECS[COLLECTION_REVOKED_TOKENS]
+        self.assertTrue(any(spec.get("unique") is True and ("jti", 1) in spec["keys"] for spec in revoked_specs))
+        self.assertTrue(any(spec.get("expireAfterSeconds") == 0 and ("expires_at", 1) in spec["keys"] for spec in revoked_specs))
+
     def test_model_schemas(self):
-        """Test document builder models for all 16 collections."""
+        """Test document builder models for all collections."""
         user_id = str(ObjectId())
         space_id = str(ObjectId())
         content_id = str(ObjectId())
@@ -171,6 +179,15 @@ class TestDatabaseArchitecture(unittest.TestCase):
         # 16. activity
         act_doc = build_activity_doc(space_id=space_id, user_id=user_id, action="content_added", target_type="content_item", target_id=content_id)
         self.assertEqual(act_doc["action"], "content_added")
+
+        # 17. revoked_tokens
+        exp_dt = datetime.now(timezone.utc)
+        rt_doc = build_revoked_token_doc(jti="test-jti-123", token_type="access", expires_at=exp_dt, user_id=user_id)
+        self.assertEqual(rt_doc["jti"], "test-jti-123")
+        self.assertEqual(rt_doc["token_type"], "access")
+        self.assertEqual(rt_doc["expires_at"], exp_dt)
+        self.assertEqual(rt_doc["user_id"], ObjectId(user_id))
+
 
     def test_legacy_rag_compatibility(self):
         """Verify existing RAG/vector and knowledge.json code remains functional."""

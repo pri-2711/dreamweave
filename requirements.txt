@@ -7,3 +7,5 @@ fastapi
 uvicorn
 pymongo
 python-dotenv
+bcrypt
+PyJWT

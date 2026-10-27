@@ -100,12 +100,20 @@ def add_space_member(
     user_id: Union[str, ObjectId],
     role: str = "viewer"
 ) -> Dict[str, Any]:
-    """Add or update a member in a space."""
+    """Add or update a member in a space. Protects owner from accidental role demotion."""
     sid = to_object_id(space_id)
     uid = to_object_id(user_id)
     coll = get_collection(COLLECTION_SPACE_MEMBERS)
+
+    space = get_space_by_id(sid)
+    # Owner protection: If user is the recorded space owner, enforce role='owner'
+    if space and space.get("owner_id") == uid:
+        role = "owner"
+
     existing = coll.find_one({"space_id": sid, "user_id": uid})
     if existing:
+        if existing.get("role") == "owner" and space and space.get("owner_id") == uid:
+            role = "owner"
         coll.update_one({"_id": existing["_id"]}, {"$set": {"role": role}})
         existing["role"] = role
         return existing
@@ -116,6 +124,54 @@ def add_space_member(
     return doc
 
 
+def get_space_member(
+    space_id: Union[str, ObjectId],
+    user_id: Union[str, ObjectId]
+) -> Optional[Dict[str, Any]]:
+    """Find a member record in space_members by space_id and user_id."""
+    sid = to_object_id(space_id)
+    uid = to_object_id(user_id)
+    if not sid or not uid:
+        return None
+    coll = get_collection(COLLECTION_SPACE_MEMBERS)
+    return coll.find_one({"space_id": sid, "user_id": uid})
+
+
+def remove_space_member(
+    space_id: Union[str, ObjectId],
+    user_id: Union[str, ObjectId]
+) -> bool:
+    """
+    Remove a member association from a space.
+    Owner protection: cannot remove the space owner or an 'owner' role member.
+    Returns True if deleted, False if not found or if target is space owner.
+    """
+    sid = to_object_id(space_id)
+    uid = to_object_id(user_id)
+    if not sid or not uid:
+        return False
+
+    space = get_space_by_id(sid)
+    if not space:
+        return False
+
+    # Owner protection: cannot remove recorded owner
+    if space.get("owner_id") == uid:
+        return False
+
+    coll = get_collection(COLLECTION_SPACE_MEMBERS)
+    existing = coll.find_one({"space_id": sid, "user_id": uid})
+    if not existing:
+        return False
+
+    # Owner protection: cannot remove owner role
+    if existing.get("role") == "owner":
+        return False
+
+    result = coll.delete_one({"_id": existing["_id"]})
+    return result.deleted_count > 0
+
+
 def list_space_members(space_id: Union[str, ObjectId]) -> List[Dict[str, Any]]:
     """List all members of a space."""
     sid = to_object_id(space_id)
@@ -123,3 +179,34 @@ def list_space_members(space_id: Union[str, ObjectId]) -> List[Dict[str, Any]]:
         return []
     coll = get_collection(COLLECTION_SPACE_MEMBERS)
     return list(coll.find({"space_id": sid}))
+
+
+def list_spaces_for_user(
+    user_id: Union[str, ObjectId],
+    status: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    """
+    List all spaces where the user is an owner or collaborator.
+    Guarantees no duplicate space records in returned list.
+    """
+    uid = to_object_id(user_id)
+    if not uid:
+        return []
+
+    coll_members = get_collection(COLLECTION_SPACE_MEMBERS)
+    coll_spaces = get_collection(COLLECTION_SPACES)
+
+    member_records = coll_members.find({"user_id": uid}, {"space_id": 1})
+    member_space_ids = [m["space_id"] for m in member_records if m.get("space_id")]
+
+    query: Dict[str, Any] = {
+        "$or": [
+            {"owner_id": uid},
+            {"_id": {"$in": member_space_ids}}
+        ]
+    }
+    if status:
+        query["status"] = status
+
+    return list(coll_spaces.find(query).sort("created_at", -1))
+

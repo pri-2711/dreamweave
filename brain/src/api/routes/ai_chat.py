@@ -32,10 +32,16 @@ def space_ai_chat(
     4. Logs generation usage event to `ai_generations`.
     5. Returns grounded answer and source citations.
     """
-    res = answer_space_query(space_id=space_id, question=payload.message, top_k=payload.top_k)
+    res = answer_space_query(
+        space_id=space_id,
+        question=payload.message,
+        top_k=payload.top_k,
+        current_user_id=current_user_id
+    )
 
     # Log usage event to ai_generations collection
     uid = parse_object_id(current_user_id, param_name="user_id")
+
     sid = parse_object_id(space_id, param_name="space_id")
     ai_repo.create_ai_generation(
         user_id=uid,

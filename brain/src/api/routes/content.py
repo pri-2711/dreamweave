@@ -26,21 +26,27 @@ def list_content(
     space_id: Optional[str] = None,
     type: Optional[str] = None,
     is_favourite: Optional[bool] = None,
-    is_archived: Optional[bool] = None
+    is_archived: Optional[bool] = None,
+    current_user_id: str = Depends(get_current_user_id)
 ):
-    """List content items with optional filters."""
+    """List content items with optional filters (requires space viewer if space_id provided)."""
     return services.content_service.list_content_items(
         space_id=space_id,
         item_type=type,
         is_favourite=is_favourite,
-        is_archived=is_archived
+        is_archived=is_archived,
+        current_user_id=current_user_id
     )
 
 
 @router.get("/{content_id}", status_code=status.HTTP_200_OK)
-def get_content(content_id: str):
+def get_content(
+    content_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """Get a content item by ID."""
-    return services.content_service.get_content_item(content_id)
+    return services.content_service.get_content_item(content_id, current_user_id=current_user_id)
+
 
 
 @router.patch("/{content_id}", status_code=status.HTTP_200_OK)

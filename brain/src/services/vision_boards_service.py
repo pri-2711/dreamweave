@@ -17,15 +17,11 @@ from brain.src.utils.serialization import parse_object_id, serialize_doc, serial
 
 
 def create_vision_board(space_id: str, data: VisionBoardCreate, current_user_id: str) -> Dict[str, Any]:
-    """Create a new Vision Board for a space."""
-    sid = parse_object_id(space_id, param_name="space_id")
-    space = spaces_repo.get_space_by_id(sid)
-    if not space:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Space with id '{space_id}' not found."
-        )
+    """Create a new Vision Board for a space (requires editor role)."""
+    from brain.src.services.authorization import check_space_access
+    check_space_access(space_id, current_user_id, required_role="editor")
 
+    sid = parse_object_id(space_id, param_name="space_id")
     doc = vb_repo.create_vision_board(
         space_id=sid,
         name=data.name.strip(),
@@ -45,15 +41,19 @@ def create_vision_board(space_id: str, data: VisionBoardCreate, current_user_id:
     return serialize_doc(doc)
 
 
-def list_vision_boards(space_id: str) -> List[Dict[str, Any]]:
-    """List vision boards in a space."""
+def list_vision_boards(space_id: str, current_user_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    """List vision boards in a space (requires viewer role)."""
+    if current_user_id:
+        from brain.src.services.authorization import check_space_access
+        check_space_access(space_id, current_user_id, required_role="viewer")
+
     sid = parse_object_id(space_id, param_name="space_id")
     boards = vb_repo.list_vision_boards_by_space(sid)
     return serialize_docs(boards)
 
 
-def get_vision_board(board_id: str) -> Dict[str, Any]:
-    """Get a vision board by ID."""
+def get_vision_board(board_id: str, current_user_id: Optional[str] = None) -> Dict[str, Any]:
+    """Get a vision board by ID (requires viewer role in space)."""
     bid = parse_object_id(board_id, param_name="board_id")
     board = vb_repo.get_vision_board_by_id(bid)
     if not board:
@@ -61,11 +61,16 @@ def get_vision_board(board_id: str) -> Dict[str, Any]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Vision board with id '{board_id}' not found."
         )
+
+    if current_user_id and board.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(board["space_id"]), current_user_id, required_role="viewer")
+
     return serialize_doc(board)
 
 
 def update_vision_board(board_id: str, data: VisionBoardUpdate, current_user_id: str) -> Dict[str, Any]:
-    """Update vision board metadata."""
+    """Update vision board metadata (requires editor role)."""
     bid = parse_object_id(board_id, param_name="board_id")
     existing = vb_repo.get_vision_board_by_id(bid)
     if not existing:
@@ -73,6 +78,10 @@ def update_vision_board(board_id: str, data: VisionBoardUpdate, current_user_id:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Vision board with id '{board_id}' not found."
         )
+
+    if existing.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(existing["space_id"]), current_user_id, required_role="editor")
 
     updates = {}
     if data.name is not None:
@@ -93,7 +102,7 @@ def update_vision_board(board_id: str, data: VisionBoardUpdate, current_user_id:
 
 
 def delete_vision_board(board_id: str, current_user_id: str) -> Dict[str, Any]:
-    """Delete a vision board and its board items."""
+    """Delete a vision board and its board items (requires editor role)."""
     bid = parse_object_id(board_id, param_name="board_id")
     existing = vb_repo.get_vision_board_by_id(bid)
     if not existing:
@@ -101,6 +110,10 @@ def delete_vision_board(board_id: str, current_user_id: str) -> Dict[str, Any]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Vision board with id '{board_id}' not found."
         )
+
+    if existing.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(existing["space_id"]), current_user_id, required_role="editor")
 
     from brain.src.database.collections import (
         COLLECTION_VISION_BOARDS,
@@ -113,7 +126,7 @@ def delete_vision_board(board_id: str, current_user_id: str) -> Dict[str, Any]:
 
 
 def create_vision_board_item(board_id: str, data: VisionBoardItemCreate, current_user_id: str) -> Dict[str, Any]:
-    """Add a freeform item to a vision board."""
+    """Add a freeform item to a vision board (requires editor role)."""
     bid = parse_object_id(board_id, param_name="board_id")
     board = vb_repo.get_vision_board_by_id(bid)
     if not board:
@@ -121,6 +134,10 @@ def create_vision_board_item(board_id: str, data: VisionBoardItemCreate, current
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Vision board with id '{board_id}' not found."
         )
+
+    if board.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(board["space_id"]), current_user_id, required_role="editor")
 
     cnt_oid = parse_object_id(data.content_id, param_name="content_id") if data.content_id else None
     aic_oid = parse_object_id(data.ai_content_id, param_name="ai_content_id") if data.ai_content_id else None
@@ -141,15 +158,26 @@ def create_vision_board_item(board_id: str, data: VisionBoardItemCreate, current
     return serialize_doc(doc)
 
 
-def list_vision_board_items(board_id: str) -> List[Dict[str, Any]]:
-    """List all items on a vision board."""
+def list_vision_board_items(board_id: str, current_user_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    """List all items on a vision board (requires viewer role)."""
     bid = parse_object_id(board_id, param_name="board_id")
+    board = vb_repo.get_vision_board_by_id(bid)
+    if not board:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Vision board with id '{board_id}' not found."
+        )
+
+    if current_user_id and board.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(board["space_id"]), current_user_id, required_role="viewer")
+
     items = vb_repo.list_vision_board_items(bid)
     return serialize_docs(items)
 
 
 def update_vision_board_item(item_id: str, data: VisionBoardItemUpdate, current_user_id: str) -> Dict[str, Any]:
-    """Update position, size, rotation, or style of a vision board item."""
+    """Update position, size, rotation, or style of a vision board item (requires editor role)."""
     iid = parse_object_id(item_id, param_name="item_id")
 
     from brain.src.database.collections import COLLECTION_VISION_BOARD_ITEMS, get_collection
@@ -160,6 +188,12 @@ def update_vision_board_item(item_id: str, data: VisionBoardItemUpdate, current_
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Vision board item with id '{item_id}' not found."
         )
+
+    # Check permission on parent board's space
+    parent_board = vb_repo.get_vision_board_by_id(existing["vision_board_id"])
+    if parent_board and parent_board.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(parent_board["space_id"]), current_user_id, required_role="editor")
 
     updates = {}
     if data.x is not None:
@@ -185,7 +219,7 @@ def update_vision_board_item(item_id: str, data: VisionBoardItemUpdate, current_
 
 
 def delete_vision_board_item(item_id: str, current_user_id: str) -> Dict[str, Any]:
-    """Delete an item from a vision board."""
+    """Delete an item from a vision board (requires editor role)."""
     iid = parse_object_id(item_id, param_name="item_id")
     from brain.src.database.collections import COLLECTION_VISION_BOARD_ITEMS, get_collection
     coll = get_collection(COLLECTION_VISION_BOARD_ITEMS)
@@ -196,5 +230,11 @@ def delete_vision_board_item(item_id: str, current_user_id: str) -> Dict[str, An
             detail=f"Vision board item with id '{item_id}' not found."
         )
 
+    parent_board = vb_repo.get_vision_board_by_id(existing["vision_board_id"])
+    if parent_board and parent_board.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(parent_board["space_id"]), current_user_id, required_role="editor")
+
     coll.delete_one({"_id": iid})
     return {"message": f"Vision board item '{item_id}' successfully deleted."}
+

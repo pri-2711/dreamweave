@@ -42,6 +42,8 @@ client = TestClient(app)
 class TestAIRAGLayer(unittest.TestCase):
 
     def setUp(self):
+        conn.get_database = lambda: mock_db
+        colls.get_database = lambda: mock_db
         for c in mock_db.list_collection_names():
             mock_db[c].delete_many({})
 

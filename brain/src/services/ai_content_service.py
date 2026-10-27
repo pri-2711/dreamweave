@@ -12,15 +12,11 @@ from brain.src.utils.serialization import parse_object_id, serialize_doc, serial
 
 
 def create_ai_content(data: AIContentCreate, current_user_id: str) -> Dict[str, Any]:
-    """Create persistent AI content document."""
-    sid = parse_object_id(data.space_id, param_name="space_id")
-    space = spaces_repo.get_space_by_id(sid)
-    if not space:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Space with id '{data.space_id}' not found."
-        )
+    """Create persistent AI content document (requires editor role)."""
+    from brain.src.services.authorization import check_space_access
+    check_space_access(data.space_id, current_user_id, required_role="editor")
 
+    sid = parse_object_id(data.space_id, param_name="space_id")
     uid = parse_object_id(current_user_id, param_name="user_id")
     asset_oid = parse_object_id(data.asset_id, param_name="asset_id") if data.asset_id else None
 
@@ -48,8 +44,8 @@ def create_ai_content(data: AIContentCreate, current_user_id: str) -> Dict[str, 
     return serialize_doc(doc)
 
 
-def get_ai_content(ai_content_id: str) -> Dict[str, Any]:
-    """Get persistent AI content by ID."""
+def get_ai_content(ai_content_id: str, current_user_id: Optional[str] = None) -> Dict[str, Any]:
+    """Get persistent AI content by ID (requires viewer role in space)."""
     aid = parse_object_id(ai_content_id, param_name="ai_content_id")
     item = ai_repo.get_ai_content_by_id(aid)
     if not item:
@@ -57,18 +53,27 @@ def get_ai_content(ai_content_id: str) -> Dict[str, Any]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"AI content with id '{ai_content_id}' not found."
         )
+
+    if current_user_id and item.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(item["space_id"]), current_user_id, required_role="viewer")
+
     return serialize_doc(item)
 
 
-def list_ai_content(space_id: str, content_type: Optional[str] = None) -> List[Dict[str, Any]]:
-    """List persistent AI content items in a space."""
+def list_ai_content(space_id: str, content_type: Optional[str] = None, current_user_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    """List persistent AI content items in a space (requires viewer role)."""
+    if current_user_id:
+        from brain.src.services.authorization import check_space_access
+        check_space_access(space_id, current_user_id, required_role="viewer")
+
     sid = parse_object_id(space_id, param_name="space_id")
     items = ai_repo.list_ai_content_by_space(space_id=sid, content_type=content_type)
     return serialize_docs(items)
 
 
 def update_ai_content(ai_content_id: str, data: AIContentUpdate, current_user_id: str) -> Dict[str, Any]:
-    """Update fields of an AI content document."""
+    """Update fields of an AI content document (requires editor role)."""
     aid = parse_object_id(ai_content_id, param_name="ai_content_id")
     existing = ai_repo.get_ai_content_by_id(aid)
     if not existing:
@@ -76,6 +81,10 @@ def update_ai_content(ai_content_id: str, data: AIContentUpdate, current_user_id
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"AI content with id '{ai_content_id}' not found."
         )
+
+    if existing.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(existing["space_id"]), current_user_id, required_role="editor")
 
     updates = {}
     if data.title is not None:
@@ -98,7 +107,7 @@ def update_ai_content(ai_content_id: str, data: AIContentUpdate, current_user_id
 
 
 def delete_ai_content(ai_content_id: str, current_user_id: str) -> Dict[str, Any]:
-    """Delete an AI content document by ID."""
+    """Delete an AI content document by ID (requires editor role)."""
     aid = parse_object_id(ai_content_id, param_name="ai_content_id")
     existing = ai_repo.get_ai_content_by_id(aid)
     if not existing:
@@ -107,6 +116,11 @@ def delete_ai_content(ai_content_id: str, current_user_id: str) -> Dict[str, Any
             detail=f"AI content with id '{ai_content_id}' not found."
         )
 
+    if existing.get("space_id"):
+        from brain.src.services.authorization import check_space_access
+        check_space_access(str(existing["space_id"]), current_user_id, required_role="editor")
+
     from brain.src.database.collections import COLLECTION_AI_CONTENT, get_collection
     get_collection(COLLECTION_AI_CONTENT).delete_one({"_id": aid})
     return {"message": f"AI content '{ai_content_id}' successfully deleted."}
+

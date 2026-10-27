@@ -9,10 +9,12 @@ from brain.src.database.repositories import spaces as spaces_repo
 from brain.src.database.repositories import activity as activity_repo
 from brain.src.schemas.plans import PlanCreate, PlanUpdate, TaskCreate, TaskUpdate
 from brain.src.utils.serialization import parse_object_id, serialize_doc, serialize_docs
+from brain.src.services.authorization import check_space_access
 
 
 def create_plan(space_id: str, data: PlanCreate, current_user_id: str) -> Dict[str, Any]:
     """Create a structured plan for a space."""
+    check_space_access(space_id, current_user_id, "editor")
     sid = parse_object_id(space_id, param_name="space_id")
     space = spaces_repo.get_space_by_id(sid)
     if not space:
@@ -43,14 +45,16 @@ def create_plan(space_id: str, data: PlanCreate, current_user_id: str) -> Dict[s
     return serialize_doc(doc)
 
 
-def list_plans(space_id: str) -> List[Dict[str, Any]]:
+def list_plans(space_id: str, current_user_id: Optional[str] = None) -> List[Dict[str, Any]]:
     """List plans in a space."""
+    if current_user_id:
+        check_space_access(space_id, current_user_id, "viewer")
     sid = parse_object_id(space_id, param_name="space_id")
     plans = plans_repo.list_plans_by_space(sid)
     return serialize_docs(plans)
 
 
-def get_plan(plan_id: str) -> Dict[str, Any]:
+def get_plan(plan_id: str, current_user_id: Optional[str] = None) -> Dict[str, Any]:
     """Get a plan by ID."""
     pid = parse_object_id(plan_id, param_name="plan_id")
     plan = plans_repo.get_plan_by_id(pid)
@@ -59,6 +63,8 @@ def get_plan(plan_id: str) -> Dict[str, Any]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Plan with id '{plan_id}' not found."
         )
+    if current_user_id:
+        check_space_access(plan["space_id"], current_user_id, "viewer")
     return serialize_doc(plan)
 
 
@@ -71,6 +77,7 @@ def update_plan(plan_id: str, data: PlanUpdate, current_user_id: str) -> Dict[st
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Plan with id '{plan_id}' not found."
         )
+    check_space_access(existing["space_id"], current_user_id, "editor")
 
     updates = {}
     if data.title is not None:
@@ -103,6 +110,7 @@ def delete_plan(plan_id: str, current_user_id: str) -> Dict[str, Any]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Plan with id '{plan_id}' not found."
         )
+    check_space_access(existing["space_id"], current_user_id, "editor")
 
     from brain.src.database.collections import (
         COLLECTION_PLANS,
@@ -123,6 +131,7 @@ def create_task(plan_id: str, data: TaskCreate, current_user_id: str) -> Dict[st
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Plan with id '{plan_id}' not found."
         )
+    check_space_access(plan["space_id"], current_user_id, "editor")
 
     sid = parse_object_id(data.space_id, param_name="space_id") if data.space_id else plan.get("space_id")
 
@@ -139,9 +148,17 @@ def create_task(plan_id: str, data: TaskCreate, current_user_id: str) -> Dict[st
     return serialize_doc(doc)
 
 
-def list_tasks(plan_id: str) -> List[Dict[str, Any]]:
+def list_tasks(plan_id: str, current_user_id: Optional[str] = None) -> List[Dict[str, Any]]:
     """List tasks belonging to a plan."""
     pid = parse_object_id(plan_id, param_name="plan_id")
+    plan = plans_repo.get_plan_by_id(pid)
+    if not plan:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Plan with id '{plan_id}' not found."
+        )
+    if current_user_id:
+        check_space_access(plan["space_id"], current_user_id, "viewer")
     tasks = plans_repo.list_tasks_by_plan(pid)
     return serialize_docs(tasks)
 
@@ -157,6 +174,7 @@ def update_task(task_id: str, data: TaskUpdate, current_user_id: str) -> Dict[st
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Task with id '{task_id}' not found."
         )
+    check_space_access(existing["space_id"], current_user_id, "editor")
 
     updates = {}
     if data.title is not None:
@@ -188,6 +206,7 @@ def delete_task(task_id: str, current_user_id: str) -> Dict[str, Any]:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Task with id '{task_id}' not found."
         )
+    check_space_access(existing["space_id"], current_user_id, "editor")
 
     coll.delete_one({"_id": tid})
     return {"message": f"Task '{task_id}' successfully deleted."}

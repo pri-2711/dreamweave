@@ -20,20 +20,26 @@ logger = logging.getLogger("dreamweave.rag.service")
 def answer_space_query(
     space_id: str,
     question: str,
-    top_k: Optional[int] = None
+    top_k: Optional[int] = None,
+    current_user_id: Optional[str] = None
 ) -> Dict[str, Any]:
     """
     Perform Space-aware grounded RAG query:
-    1. Validate space_id.
+    1. Validate space_id and check viewer permission.
     2. Embed question into 384-dimensional vector space.
     3. Retrieve top-k relevant chunks filtered strictly by space_id.
     4. Build grounded RAG prompt.
     5. Call Gemini API service.
     6. Return answer with source references.
     """
+    if current_user_id:
+        from brain.src.services.authorization import check_space_access
+        check_space_access(space_id, current_user_id, required_role="viewer")
+
     sid = parse_object_id(space_id, param_name="space_id")
     space = spaces_repo.get_space_by_id(sid)
     space_name = space.get("name") if space else None
+
 
     k = top_k or config.RAG_TOP_K or 5
 

@@ -23,16 +23,25 @@ def create_ai_content(
 @router.get("", status_code=status.HTTP_200_OK)
 def list_ai_content(
     space_id: str,
-    type: Optional[str] = None
+    type: Optional[str] = None,
+    current_user_id: str = Depends(get_current_user_id)
 ):
-    """List persistent AI content items in a space."""
-    return services.ai_content_service.list_ai_content(space_id=space_id, content_type=type)
+    """List persistent AI content items in a space (requires viewer role)."""
+    return services.ai_content_service.list_ai_content(
+        space_id=space_id,
+        content_type=type,
+        current_user_id=current_user_id
+    )
 
 
 @router.get("/{id}", status_code=status.HTTP_200_OK)
-def get_ai_content(id: str):
+def get_ai_content(
+    id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """Get persistent AI content item by ID."""
-    return services.ai_content_service.get_ai_content(id)
+    return services.ai_content_service.get_ai_content(id, current_user_id=current_user_id)
+
 
 
 @router.patch("/{id}", status_code=status.HTTP_200_OK)

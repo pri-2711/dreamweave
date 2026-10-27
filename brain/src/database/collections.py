@@ -24,6 +24,7 @@ COLLECTION_TASKS = "tasks"
 COLLECTION_CONVERSATIONS = "conversations"
 COLLECTION_MESSAGES = "messages"
 COLLECTION_ACTIVITY = "activity"
+COLLECTION_REVOKED_TOKENS = "revoked_tokens"
 
 ALL_COLLECTIONS = [
     COLLECTION_USERS,
@@ -42,6 +43,7 @@ ALL_COLLECTIONS = [
     COLLECTION_CONVERSATIONS,
     COLLECTION_MESSAGES,
     COLLECTION_ACTIVITY,
+    COLLECTION_REVOKED_TOKENS,
 ]
 
 
@@ -52,6 +54,7 @@ def get_collection(name: str) -> Collection:
 
 
 def get_all_collections() -> Dict[str, Collection]:
-    """Return a dictionary of all 16 collections mapped to their PyMongo instances."""
+    """Return a dictionary of all collections mapped to their PyMongo instances."""
     db = get_database()
     return {name: db[name] for name in ALL_COLLECTIONS}
+

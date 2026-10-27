@@ -23,15 +23,21 @@ def create_plan(
 
 
 @router.get("/spaces/{space_id}/plans", status_code=status.HTTP_200_OK)
-def list_plans(space_id: str):
+def list_plans(
+    space_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """List all plans in a space."""
-    return services.plans_service.list_plans(space_id)
+    return services.plans_service.list_plans(space_id, current_user_id)
 
 
 @router.get("/plans/{plan_id}", status_code=status.HTTP_200_OK)
-def get_plan(plan_id: str):
+def get_plan(
+    plan_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """Get a plan by ID."""
-    return services.plans_service.get_plan(plan_id)
+    return services.plans_service.get_plan(plan_id, current_user_id)
 
 
 @router.patch("/plans/{plan_id}", status_code=status.HTTP_200_OK)
@@ -66,9 +72,12 @@ def create_task(
 
 
 @router.get("/plans/{plan_id}/tasks", status_code=status.HTTP_200_OK)
-def list_tasks(plan_id: str):
+def list_tasks(
+    plan_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """List tasks belonging to a plan."""
-    return services.plans_service.list_tasks(plan_id)
+    return services.plans_service.list_tasks(plan_id, current_user_id)
 
 
 @router.patch("/tasks/{task_id}", status_code=status.HTTP_200_OK)

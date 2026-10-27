@@ -484,3 +484,22 @@ def build_activity_doc(
         },
         "created_at": now_utc()
     }
+
+
+def build_revoked_token_doc(
+    jti: str,
+    token_type: str,
+    expires_at: datetime,
+    user_id: Optional[Union[str, ObjectId]] = None,
+    reason: str = "logout"
+) -> Dict[str, Any]:
+    """Build a document for the `revoked_tokens` collection."""
+    return {
+        "jti": str(jti),
+        "token_type": str(token_type),
+        "expires_at": expires_at,
+        "user_id": to_object_id(user_id) if user_id else None,
+        "reason": reason,
+        "revoked_at": now_utc()
+    }
+

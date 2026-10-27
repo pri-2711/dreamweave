@@ -39,8 +39,12 @@ def create_space(data: SpaceCreate, current_user_id: str) -> Dict[str, Any]:
     return serialize_doc(doc)
 
 
-def get_space(space_id: str) -> Dict[str, Any]:
-    """Get a Space by ID."""
+def get_space(space_id: str, current_user_id: Optional[str] = None) -> Dict[str, Any]:
+    """Get a Space by ID (requires viewer role if user_id provided)."""
+    if current_user_id:
+        from brain.src.services.authorization import check_space_access
+        check_space_access(space_id, current_user_id, required_role="viewer")
+
     sid = parse_object_id(space_id, param_name="space_id")
     space = spaces_repo.get_space_by_id(sid)
     if not space:
@@ -52,14 +56,17 @@ def get_space(space_id: str) -> Dict[str, Any]:
 
 
 def list_spaces(current_user_id: str, status: Optional[str] = None) -> List[Dict[str, Any]]:
-    """List all Spaces owned by current user."""
+    """List all Spaces where current user is owner or collaborator without duplicates."""
     owner_oid = parse_object_id(current_user_id, param_name="user_id")
-    spaces = spaces_repo.list_spaces_by_owner(owner_id=owner_oid, status=status)
+    spaces = spaces_repo.list_spaces_for_user(user_id=owner_oid, status=status)
     return serialize_docs(spaces)
 
 
 def update_space(space_id: str, data: SpaceUpdate, current_user_id: str) -> Dict[str, Any]:
-    """Update fields of an existing Space."""
+    """Update fields of an existing Space (requires editor or owner role)."""
+    from brain.src.services.authorization import check_space_access
+    check_space_access(space_id, current_user_id, required_role="editor")
+
     sid = parse_object_id(space_id, param_name="space_id")
     existing = spaces_repo.get_space_by_id(sid)
     if not existing:
@@ -104,7 +111,10 @@ def update_space(space_id: str, data: SpaceUpdate, current_user_id: str) -> Dict
 
 
 def delete_space(space_id: str, current_user_id: str) -> Dict[str, Any]:
-    """Delete a Space by ID."""
+    """Delete a Space by ID (strictly requires owner role)."""
+    from brain.src.services.authorization import check_space_access
+    check_space_access(space_id, current_user_id, required_role="owner")
+
     sid = parse_object_id(space_id, param_name="space_id")
     existing = spaces_repo.get_space_by_id(sid)
     if not existing:
@@ -115,3 +125,44 @@ def delete_space(space_id: str, current_user_id: str) -> Dict[str, Any]:
 
     spaces_repo.delete_space(sid)
     return {"message": f"Space '{space_id}' successfully deleted."}
+
+
+def add_space_member(space_id: str, member_user_id: str, role: str, current_user_id: str) -> Dict[str, Any]:
+    """Add or update a collaborator in a space (strictly requires owner role)."""
+    from brain.src.services.authorization import check_space_access
+    check_space_access(space_id, current_user_id, required_role="owner")
+
+    sid = parse_object_id(space_id, param_name="space_id")
+    uid = parse_object_id(member_user_id, param_name="member_user_id")
+
+    record = spaces_repo.add_space_member(space_id=sid, user_id=uid, role=role)
+    return serialize_doc(record)
+
+
+def list_space_members(space_id: str, current_user_id: str) -> List[Dict[str, Any]]:
+    """List all members of a space (requires viewer role)."""
+    from brain.src.services.authorization import check_space_access
+    check_space_access(space_id, current_user_id, required_role="viewer")
+
+    sid = parse_object_id(space_id, param_name="space_id")
+    members = spaces_repo.list_space_members(sid)
+    return serialize_docs(members)
+
+
+def remove_space_member(space_id: str, target_user_id: str, current_user_id: str) -> Dict[str, Any]:
+    """Remove a collaborator from a space (strictly requires owner role)."""
+    from brain.src.services.authorization import check_space_access
+    check_space_access(space_id, current_user_id, required_role="owner")
+
+    sid = parse_object_id(space_id, param_name="space_id")
+    t_uid = parse_object_id(target_user_id, param_name="target_user_id")
+
+    success = spaces_repo.remove_space_member(space_id=sid, user_id=t_uid)
+    if not success:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot remove space member (member not found or member is the space owner)."
+        )
+
+    return {"message": f"Member '{target_user_id}' removed from space '{space_id}'."}
+

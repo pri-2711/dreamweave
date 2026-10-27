@@ -23,15 +23,21 @@ def create_conversation(
 
 
 @router.get("/spaces/{space_id}/conversations", status_code=status.HTTP_200_OK)
-def list_conversations(space_id: str):
+def list_conversations(
+    space_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """List conversations in a space."""
-    return services.conversations_service.list_conversations(space_id)
+    return services.conversations_service.list_conversations(space_id, current_user_id)
 
 
 @router.get("/conversations/{conversation_id}", status_code=status.HTTP_200_OK)
-def get_conversation(conversation_id: str):
+def get_conversation(
+    conversation_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """Get conversation details by ID."""
-    return services.conversations_service.get_conversation(conversation_id)
+    return services.conversations_service.get_conversation(conversation_id, current_user_id)
 
 
 # --- Message Routes ---
@@ -47,6 +53,9 @@ def add_message(
 
 
 @router.get("/conversations/{conversation_id}/messages", status_code=status.HTTP_200_OK)
-def list_messages(conversation_id: str):
+def list_messages(
+    conversation_id: str,
+    current_user_id: str = Depends(get_current_user_id)
+):
     """List all messages in a conversation."""
-    return services.conversations_service.list_messages(conversation_id)
+    return services.conversations_service.list_messages(conversation_id, current_user_id)
