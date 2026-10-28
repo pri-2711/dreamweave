@@ -182,6 +182,71 @@ class TestAIRAGLayer(unittest.TestCase):
             self.assertEqual(data["message"], mock_fallback)
             self.assertEqual(len(data["sources"]), 0)
 
+    def test_08_conversation_chat_with_history(self):
+        """Verify multi-turn conversation chat with grounded history and citations."""
+        sp = client.post("/spaces", json={"name": "Tokyo Trip Planning"}).json()["id"]
+        cnt = client.post("/content", json={
+            "space_id": sp,
+            "type": "note",
+            "title": "Hotel Reservation",
+            "description": "Hotel Gracery Shinjuku, Godzilla view room, check-in 3 PM."
+        }).json()["id"]
+        client.post(f"/content/{cnt}/ingest")
+
+        # Create conversation
+        conv = client.post(f"/spaces/{sp}/conversations", json={"title": "Trip Q&A"}).json()
+        conv_id = conv["id"]
+
+        mock_reply = "You are booked at Hotel Gracery Shinjuku with a Godzilla view room. Check-in is at 3 PM."
+        with patch("brain.src.rag.service.generate_gemini_response", return_value=mock_reply):
+            chat_res = client.post(f"/conversations/{conv_id}/chat", json={
+                "message": "Where is my hotel and when is check-in?"
+            })
+            self.assertEqual(chat_res.status_code, 200)
+            data = chat_res.json()
+            self.assertEqual(data["answer"], mock_reply)
+            self.assertEqual(len(data["sources"]), 1)
+            self.assertEqual(data["sources"][0]["content_id"], cnt)
+
+        # Check messages in conversation: should have 2 messages (user + assistant)
+        msgs = client.get(f"/conversations/{conv_id}/messages").json()
+        self.assertEqual(len(msgs), 2)
+        self.assertEqual(msgs[0]["role"], "user")
+        self.assertEqual(msgs[1]["role"], "assistant")
+        self.assertEqual(msgs[1]["content"], mock_reply)
+
+    def test_09_space_ai_content_generation(self):
+        """Verify Space AI content generation and automated persistence."""
+        sp = client.post("/spaces", json={"name": "Creative Space"}).json()["id"]
+        cnt = client.post("/content", json={
+            "space_id": sp,
+            "type": "note",
+            "title": "Activities",
+            "description": "Visit Ghibli Museum in Mitaka and teamLab Planets in Toyosu."
+        }).json()["id"]
+        client.post(f"/content/{cnt}/ingest")
+
+        mock_itinerary = "## 2-Day Tokyo Itinerary\nDay 1: Ghibli Museum\nDay 2: teamLab Planets"
+        with patch("brain.src.rag.service.generate_gemini_response", return_value=mock_itinerary):
+            gen_res = client.post(f"/spaces/{sp}/ai/generate", json={
+                "prompt": "Create a 2-day Tokyo itinerary based on saved spots",
+                "type": "itinerary",
+                "title": "Tokyo Weekend Itinerary",
+                "save_to_space": True
+            })
+            self.assertEqual(gen_res.status_code, 201)
+            data = gen_res.json()
+            self.assertEqual(data["content"], mock_itinerary)
+            self.assertEqual(data["type"], "itinerary")
+            self.assertIsNotNone(data["saved_item"])
+            self.assertEqual(data["saved_item"]["title"], "Tokyo Weekend Itinerary")
+
+        # Verify item is in Space AI content list
+        ai_contents = client.get(f"/ai-content?space_id={sp}").json()
+        self.assertEqual(len(ai_contents), 1)
+        self.assertEqual(ai_contents[0]["title"], "Tokyo Weekend Itinerary")
+
 
 if __name__ == "__main__":
     unittest.main()
+

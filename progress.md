@@ -96,3 +96,29 @@
   - Content isolation and RAG query boundaries.
   - Production mode `/db-init` blocking (403) and token requirements (401).
 - [x] Executed regression suite: all 50 tests passing across all test modules.
+
+## Phase 4: AI & Grounded RAG Milestone [COMPLETED]
+
+### Completed Pipeline & Integrations
+- [x] Ingestion & Document Store:
+  - Pipeline: `Content -> Extractor (PDF/Image OCR fallback) -> Cleaner -> Knowledge -> Chunking -> Embedding -> MongoDB`.
+  - Stored in `knowledge` and `chunks` collections with explicit `space_id`, `content_id`, and `knowledge_id` metadata.
+- [x] Unified Embeddings & Vector Search:
+  - Text & Chunk Embeddings: Both use pretrained 384-dimensional model (`BAAI/bge-small-en-v1.5` / `all-MiniLM-L6-v2`) via `embed_text` and `embed_documents`.
+  - L2 normalization and length alignment (`384`) ensures strict vector similarity parity between query and stored documents.
+  - Strict Space Boundary: Atlas Vector Search with fallback cosine similarity filtered strictly by `space_id`.
+- [x] Grounded Gemini Integration & Citations:
+  - Implemented `generate_gemini_response` in `brain/src/ai/gemini.py` supporting official SDK and REST API fallback with sanitized error handling.
+  - `prompt_builder.py`: Formatted grounded prompts distinguishing user Space knowledge from general knowledge, with mandatory source citations.
+- [x] Space AI Endpoints & Frontend Ready APIs:
+  - `POST /spaces/{space_id}/ai/chat`: Space-aware Q&A returning grounded answer and source citations list.
+  - `POST /conversations/{conversation_id}/chat`: Multi-turn conversational RAG preserving dialogue history and citing sources.
+  - `POST /spaces/{space_id}/ai/generate`: AI content generation (itineraries, summaries, suggestions, checklists) with automated Space persistence.
+  - `POST /content/{content_id}/ingest`: Trigger extraction, chunking, and embedding pipeline.
+  - `GET /content/{content_id}/knowledge`: Retrieve extracted machine-readable knowledge.
+- [x] Multi-tenant Security & Authorization:
+  - Verified 403 Forbidden on cross-user and cross-Space retrieval, generation, and chat attempts.
+  - Usage and event tracking registered in `ai_generations` collection.
+- [x] Regression & Verification:
+  - All 52 tests passing across `brain/tests` (100% OK).
+

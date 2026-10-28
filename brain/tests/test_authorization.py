@@ -215,6 +215,30 @@ class TestAuthorizationAndPermissions(unittest.TestCase):
         )
         self.assertEqual(rag_b.status_code, 403)
 
+        # User B cannot generate AI content in User A's space -> 403
+        gen_b = self.client.post(
+            f"/spaces/{space_id}/ai/generate",
+            json={"prompt": "Draft an itinerary", "type": "itinerary"},
+            headers=self.auth_headers_b
+        )
+        self.assertEqual(gen_b.status_code, 403)
+
+        # User A creates a conversation
+        conv_a = self.client.post(
+            f"/spaces/{space_id}/conversations",
+            json={"title": "Private Space Chat"},
+            headers=self.auth_headers_a
+        ).json()
+        conv_id = conv_a["id"]
+
+        # User B cannot chat in User A's conversation -> 403
+        conv_chat_b = self.client.post(
+            f"/conversations/{conv_id}/chat",
+            json={"message": "Can I read your secrets?"},
+            headers=self.auth_headers_b
+        )
+        self.assertEqual(conv_chat_b.status_code, 403)
+
     def test_production_mode_restrictions(self):
         """Test that /db-init and missing JWT tokens are blocked in production."""
         with patch("brain.src.config.ENVIRONMENT", "production"):
