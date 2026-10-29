@@ -1,0 +1,562 @@
+<header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-space-lg flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md"><img alt="DreamWeave" class="h-8 w-auto object-contain" src="/logo.svg"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">DreamWeave</span><span class="font-label-sm text-label-sm text-secondary tracking-wider uppercase mt-space-xs">Spaces &amp; Canvas</span></div></div><div class="flex-1 max-w-2xl mx-auto flex items-center gap-space-sm bg-surface-container-lowest/90 px-space-md py-space-xs rounded-full shadow-[0_2px_12px_rgba(104,86,134,0.06)]"><span class="material-symbols-outlined text-secondary text-[20px]">search</span><input class="w-full bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/60" placeholder="Search dreams, notes, moodboards, or tags..." type="text"/><div class="flex items-center gap-space-xs"><span class="px-space-sm py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">#travel</span><span class="px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">#2025</span><div class="flex items-center px-space-xs py-0.5 rounded-md bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm ml-space-xs"><span class="text-[10px]">⌘K</span></div></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant">4 Active</span></div><button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary transition-all"><span class="material-symbols-outlined text-[16px]">auto_awesome</span><span class="font-label-md text-label-md">DreamAI</span></button><button class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant flex items-center justify-center transition-colors relative"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></span></button><div class="flex items-center gap-space-xs pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_2px_8px_rgba(157,62,26,0.15)]" src="https://lh3.googleusercontent.com/aida/AEtjO1WR2gzuLL0HHB8w_ompq7akFfXQ1wHnl0LLWl3Y8SrgOlDtWSf9_AvwOthr-MbsPTZ6q-12mlL4paLeuPeclASX9758qO0X1bxdt2qvdCJ3bC8fkpD7OaBosxBLC1Jh_naVWPw1PJEOvpyIIghs5fKxQYENlNadxAV-hEHLLl607CxweixzoR78Rzyy7PrL5RT9-uzuNxyy9IJhHjNfoHvqSynmCYkGeTpub3cn6X9_01CaFdK8-OHamSTr"/></div></div></div><div class="w-full px-space-lg flex items-center justify-between bg-surface-container-low/60 backdrop-blur-md"><div class="flex items-center gap-space-md py-space-xs"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high font-label-md text-label-md text-on-surface-variant"><span class="material-symbols-outlined text-[15px]">folder_special</span><span>Space: Japan Trip ✈️</span></div><nav class="flex items-center gap-space-xs" data-active-classes="bg-surface-container-lowest text-primary font-title-sm shadow-[0_2px_8px_rgba(0,0,0,0.04)] rounded-full"><a class="px-space-md py-1.5 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="japan-trip-overview" href="/space">Overview</a><a class="px-space-md py-1.5 transition-all bg-surface-container-lowest text-primary font-title-sm shadow-[0_2px_8px_rgba(0,0,0,0.04)] rounded-full" data-path="japan-trip-content" href="/content">Content</a><a class="px-space-md py-1.5 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="japan-trip-vision-board" href="/vision">Vision Board</a><a class="px-space-md py-1.5 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="japan-trip-plan" href="/plan">Plan</a><a class="px-space-md py-1.5 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="japan-trip-ai-assistant" href="/ai">AI Assistant</a></nav></div><div class="flex items-center gap-space-xs"><button class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-all"><span class="material-symbols-outlined text-[16px]">ios_share</span>Share</button><button class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-all shadow-[0_4px_12px_rgba(157,62,26,0.2)]"><span class="material-symbols-outlined text-[16px]">add</span>Add Item</button></div></div></header><main class="w-full pt-32 bg-surface min-h-[calc(100vh-140px)]"><div class="flex flex-col w-full">
+<div class="w-full px-space-lg py-space-md flex flex-col gap-space-lg max-w-[1720px] mx-auto">
+<!-- Top Space Meta Bar & Context Breadcrumbs -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-lowest/80 backdrop-blur-md rounded-2xl p-space-md shadow-[0_8px_24px_rgba(32,30,40,0.03)]">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary shadow-[0_2px_8px_rgba(157,62,26,0.12)]">
+<span class="material-symbols-outlined text-[22px]">flight_takeoff</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md">
+<span>Spaces</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-semibold">East Asia 2025</span>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface">Vault</span>
+</div>
+<div class="flex items-center gap-space-sm mt-0.5">
+<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Japan Trip ✈️</h1>
+<span class="px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Autumn Oct 14–29</span>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">18 Elements Saved</span>
+</div>
+</div>
+</div>
+<!-- Quick Action Pill Group -->
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-all shadow-sm">
+<span class="material-symbols-outlined text-[17px] text-secondary">cloud_upload</span>
+<span>Batch Upload</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-full bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary font-label-lg text-label-lg transition-all shadow-sm">
+<span class="material-symbols-outlined text-[17px]">auto_fix_high</span>
+<span>AI Auto-Tag</span>
+</button>
+<button class="flex items-center gap-space-md py-2 px-space-lg rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg transition-all shadow-[0_8px_20px_rgba(157,62,26,0.22)]">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Add Reference</span>
+</button>
+</div>
+</div>
+<!-- Filter, Search & View Controls Palette -->
+<div class="flex flex-col gap-space-sm bg-surface-container-lowest rounded-3xl p-space-md shadow-[0_12px_32px_rgba(104,86,134,0.05)]">
+<!-- Search Input & Secondary Filters -->
+<div class="flex flex-col lg:flex-row items-center justify-between gap-space-md">
+<!-- Search bar within space -->
+<div class="relative w-full lg:max-w-xl flex items-center bg-surface-container-low/70 rounded-full px-space-md py-2">
+<span class="material-symbols-outlined text-secondary text-[20px] mr-2">search</span>
+<input class="w-full bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/60" placeholder="Search 18 items in Japan Trip (e.g. #Kyoto, shinkansen, omakase)..." type="text"/>
+<button class="flex items-center gap-0.5 text-on-surface-variant/70 hover:text-on-surface font-label-sm text-label-sm bg-surface-container-high px-2 py-0.5 rounded-full">
+<span>Filter</span>
+<span class="material-symbols-outlined text-[14px]">tune</span>
+</button>
+</div>
+<!-- Layout and Sorting Controls -->
+<div class="flex items-center justify-between w-full lg:w-auto gap-space-md">
+<div class="flex items-center bg-surface-container-low p-1 rounded-full">
+<button class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
+<span class="material-symbols-outlined text-[16px]">dashboard</span>
+<span>Masonry</span>
+</button>
+<button class="flex items-center gap-1 px-3 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+<span>Grid</span>
+</button>
+<button class="p-1 rounded-full text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined text-[16px]">density_medium</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Sort:</span>
+<div class="relative inline-block">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container transition-all">
+<span>Recently Added</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Filter Chips with Counters -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 pt-1 scrollbar-none">
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-[0_4px_12px_rgba(157,62,26,0.18)] flex-shrink-0">
+<span>All Items</span>
+<span class="bg-primary-container px-1.5 py-0.2 rounded-full font-label-sm text-label-sm text-on-primary-container">18</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex-shrink-0">
+<span>📸 Photos &amp; Visuals</span>
+<span class="bg-surface-container-high px-1.5 py-0.2 rounded-full font-label-sm text-label-sm text-on-surface-variant">8</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex-shrink-0">
+<span>📝 Notes &amp; Memos</span>
+<span class="bg-surface-container-high px-1.5 py-0.2 rounded-full font-label-sm text-label-sm text-on-surface-variant">4</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex-shrink-0">
+<span>🎫 Tickets &amp; Bookings</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed px-1.5 py-0.2 rounded-full font-label-sm text-label-sm font-bold">3</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex-shrink-0">
+<span>🔗 Links &amp; Curations</span>
+<span class="bg-surface-container-high px-1.5 py-0.2 rounded-full font-label-sm text-label-sm text-on-surface-variant">2</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex-shrink-0">
+<span>🗺️ Maps &amp; Trails</span>
+<span class="bg-surface-container-high px-1.5 py-0.2 rounded-full font-label-sm text-label-sm text-on-surface-variant">1</span>
+</button>
+</div>
+</div>
+<!-- Masonry Container: 4 Asymmetrical Fluid Columns for Large Desktop -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-lg items-start w-full">
+<!-- ================= COLUMN 1 ================= -->
+<div class="flex flex-col gap-space-lg">
+<!-- CARD: Gion Kyoto Sunset Photo -->
+<div class="group relative rounded-3xl bg-surface-container-lowest overflow-hidden shadow-[0_10px_28px_rgba(32,30,40,0.04)] hover:shadow-[0_16px_36px_rgba(157,62,26,0.12)] transition-all duration-300">
+<div class="relative w-full aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Traditional Gion Kyoto alleyway during golden hour twilight with warm paper lanterns illuminated along wooden machiya townhouses. Stone paved streets reflecting soft orange light, sunbaked terracotta hues, peaceful historic Japanese atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-7Qgf8Bjp-N_Bw3ANwzubHWqoo_Dd1ju0vM2yxpQk28OoSQhizH57ciVB-xloPuCMSxZ_E82rrCSGDIzbKw6e9lDatno_4zY9DM9jGN8pwGmNKAcmhcEbbefRF-ldXem2fJ4wDGXCirWCeLAC2bHRXcdW5e6jMjy93oLmDX6YjySbdVjaYAqoWYi7FiaiItjnl7ZHMP1gHnN6tdWTh5J-swPTlSL1mnmhE1ySgTat1KVebHd8Q2GZWA"/>
+<!-- Scrim gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-black/20"></div>
+<!-- Floating Quick Actions on Hover -->
+<div class="absolute inset-x-0 top-0 p-space-sm flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<span class="bg-surface-container-lowest/80 backdrop-blur-md px-2.5 py-1 rounded-full font-label-sm text-label-sm text-on-surface">Photo Reference</span>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary flex items-center justify-center shadow-md hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<!-- Hover floating action pills bar -->
+<div class="absolute inset-x-0 bottom-16 px-space-sm flex items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary font-label-md text-label-md shadow-md hover:bg-primary hover:text-on-primary transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">push_pin</span> Pin
+              </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-label-md text-label-md shadow-md hover:bg-secondary hover:text-on-secondary transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_add_on</span> Plan
+              </button>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface flex items-center justify-center shadow-md hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-[15px]">share</span>
+</button>
+</div>
+<!-- Overlay Bottom Info -->
+<div class="absolute bottom-0 inset-x-0 p-space-md text-on-primary">
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container/90 text-on-tertiary-container font-label-sm text-label-sm">#Kyoto</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest/30 backdrop-blur-sm text-on-primary font-label-sm text-label-sm">Golden Hour</span>
+</div>
+<h3 class="font-title-md text-title-md mt-1 drop-shadow-sm">Gion Shirakawa Dori</h3>
+</div>
+</div>
+<div class="p-space-md flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-label-sm text-label-sm">
+                TK
+              </div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Shot by Takashi K.</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70">ISO 400 • 35mm</span>
+</div>
+</div>
+<!-- CARD: Shinkansen Transit Pass -->
+<div class="group relative rounded-3xl bg-surface-container-lowest p-space-lg shadow-[0_8px_24px_rgba(32,30,40,0.04)] hover:shadow-[0_16px_36px_rgba(104,86,134,0.12)] transition-all duration-300">
+<!-- Card Header & Tag -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">train</span>
+</span>
+<span class="font-label-lg text-label-lg text-secondary">Tokaido Shinkansen</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-label-sm text-label-sm">Confirmed</span>
+</div>
+<!-- Transit Detail Matrix -->
+<div class="mt-space-md bg-surface-container-low rounded-2xl p-space-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Depart</span>
+<p class="font-headline-sm text-headline-sm text-on-surface leading-none mt-1">TYO</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tokyo Stn 09:21</p>
+</div>
+<div class="flex flex-col items-center px-2">
+<span class="font-label-sm text-label-sm text-secondary">2h 15m</span>
+<div class="w-20 h-0.5 bg-secondary/30 relative my-1">
+<div class="absolute right-0 -top-1 w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/80">Nozomi 45</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Arrive</span>
+<p class="font-headline-sm text-headline-sm text-on-surface leading-none mt-1">KYO</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kyoto Stn 11:36</p>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-label-md text-label-md">
+<span>Car 06 • Reserved</span>
+<span class="font-bold text-on-surface">Seat 7A (Mt. Fuji View)</span>
+</div>
+</div>
+<!-- Barcode simulation -->
+<div class="mt-space-md pt-space-xs flex flex-col items-center justify-center">
+<div class="w-full flex items-center justify-center gap-[3px] h-9 px-4 bg-surface-container-lowest rounded-md">
+<span class="w-[2px] h-full bg-on-surface"></span>
+<span class="w-[4px] h-full bg-on-surface"></span>
+<span class="w-[1px] h-full bg-on-surface"></span>
+<span class="w-[3px] h-full bg-on-surface"></span>
+<span class="w-[2px] h-full bg-on-surface"></span>
+<span class="w-[5px] h-full bg-on-surface"></span>
+<span class="w-[1px] h-full bg-on-surface"></span>
+<span class="w-[4px] h-full bg-on-surface"></span>
+<span class="w-[2px] h-full bg-on-surface"></span>
+<span class="w-[6px] h-full bg-on-surface"></span>
+<span class="w-[2px] h-full bg-on-surface"></span>
+<span class="w-[3px] h-full bg-on-surface"></span>
+<span class="w-[1px] h-full bg-on-surface"></span>
+<span class="w-[4px] h-full bg-on-surface"></span>
+<span class="w-[2px] h-full bg-on-surface"></span>
+<span class="w-[1px] h-full bg-on-surface"></span>
+<span class="w-[5px] h-full bg-on-surface"></span>
+<span class="w-[3px] h-full bg-on-surface"></span>
+</div>
+<div class="flex items-center justify-between w-full mt-1.5 px-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>JR-CENTRAL-88902</span>
+<span class="font-semibold text-primary">¥13,870</span>
+</div>
+</div>
+<!-- Bottom Hover Card Action bar -->
+<div class="mt-space-md pt-2 flex items-center justify-between border-t-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Added 2d ago by You</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded-full hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+<button class="p-1 rounded-full hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= COLUMN 2 ================= -->
+<div class="flex flex-col gap-space-lg">
+<!-- CARD: Tactile Sticky Memo: Ryokan & Onsen Rules -->
+<div class="group relative rounded-3xl bg-[#FFF6E9] p-space-lg shadow-[0_8px_24px_rgba(139,76,17,0.06)] rotate-[-1deg] hover:rotate-0 transition-transform duration-300">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-tertiary">
+<span class="material-symbols-outlined text-[20px]">push_pin</span>
+<span class="font-label-lg text-label-lg uppercase tracking-wider">Culture Memo</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary/70">Kinosaki / Hakone</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mt-space-sm font-headline-sm">
+            Ryokan Etiquette &amp; Onsen Rules
+          </h3>
+<ul class="mt-space-md space-y-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container mt-2 flex-shrink-0"></span>
+<span><strong>Yukata wrap:</strong> Left collar over right always (right over left is reserved for funeral rites).</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container mt-2 flex-shrink-0"></span>
+<span><strong>Wash thoroughly</strong> on wooden stool before stepping into communal water.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container mt-2 flex-shrink-0"></span>
+<span><strong>Modesty towel</strong> never touches hot spring water—fold &amp; balance on head.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container mt-2 flex-shrink-0"></span>
+<span><strong>Remove outdoor footwear</strong> at the genkan step; point shoes outward.</span>
+</li>
+</ul>
+<div class="mt-space-lg pt-space-xs flex items-center justify-between text-tertiary font-label-sm text-label-sm">
+<span>Pinned to Itinerary Day 4</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded-full hover:bg-black/5"><span class="material-symbols-outlined text-[16px]">edit_note</span></button>
+<button class="p-1 rounded-full hover:bg-black/5"><span class="material-symbols-outlined text-[16px]">check_circle</span></button>
+</div>
+</div>
+</div>
+<!-- CARD: teamLab Borderless Ticket Confirmation -->
+<div class="group relative rounded-3xl bg-surface-container-lowest overflow-hidden shadow-[0_8px_24px_rgba(32,30,40,0.04)] hover:shadow-[0_16px_36px_rgba(104,86,134,0.12)] transition-all duration-300">
+<div class="p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Digital Art</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Azabudai Hills</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">confirmation_number</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">teamLab Borderless Tokyo</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Entry Window: 14:30 – 15:00 • 2 Adults</p>
+</div>
+<!-- QR Code Interactive Canvas Card Simulation -->
+<div class="flex items-center gap-space-md p-space-sm bg-surface-container-low rounded-2xl">
+<!-- QR placeholder container -->
+<div class="w-20 h-20 bg-surface-container-lowest p-1.5 rounded-xl shadow-inner flex-shrink-0 flex items-center justify-center">
+<svg class="w-full h-full text-on-surface" fill="currentColor" viewbox="0 0 100 100">
+<path d="M0,0 h35 v35 h-35 z M10,10 h15 v15 h-15 z M65,0 h35 v35 h-35 z M75,10 h15 v15 h-15 z M0,65 h35 v35 h-35 z M10,75 h15 v15 h-15 z M45,10 h10 v10 h-10 z M45,30 h10 v10 h-10 z M30,45 h10 v10 h-10 z M60,45 h20 v10 h-20 z M45,65 h10 v20 h-10 z M70,70 h10 v10 h-10 z M85,60 h10 v35 h-10 z"></path>
+</svg>
+</div>
+<div class="flex flex-col justify-between py-1">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Voucher Code</span>
+<p class="font-title-sm text-title-sm text-on-surface tracking-wider font-mono">TLB-99420-X</p>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:underline mt-1" href="#">
+<span>Open teamLab App</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<span>Paid: ¥7,600 (Amex)</span>
+<button class="flex items-center gap-1 text-primary hover:text-primary-container font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Add to Wallet</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CARD: Color Swatch Moodboard Card -->
+<div class="rounded-3xl bg-surface-container-lowest p-space-md shadow-[0_6px_20px_rgba(32,30,40,0.03)] flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Palette Study</span>
+<span class="font-label-sm text-label-sm text-secondary">Autumn Kyoto</span>
+</div>
+<div class="grid grid-cols-3 gap-2 h-16 rounded-2xl overflow-hidden">
+<div class="bg-primary flex flex-col justify-end p-2 text-on-primary">
+<span class="font-label-sm text-label-sm font-mono leading-none">#9D3E1A</span>
+</div>
+<div class="bg-secondary flex flex-col justify-end p-2 text-on-secondary">
+<span class="font-label-sm text-label-sm font-mono leading-none">#685686</span>
+</div>
+<div class="bg-tertiary-container flex flex-col justify-end p-2 text-on-tertiary-container">
+<span class="font-label-sm text-label-sm font-mono leading-none">#A96428</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80">Maple foliage at Tofuku-ji, twilight temple lanterns, roasted hojicha tea.</p>
+</div>
+</div>
+<!-- ================= COLUMN 3 ================= -->
+<div class="flex flex-col gap-space-lg">
+<!-- CARD: Mt Fuji Morning Mist Photo -->
+<div class="group relative rounded-3xl bg-surface-container-lowest overflow-hidden shadow-[0_10px_28px_rgba(32,30,40,0.04)] hover:shadow-[0_16px_36px_rgba(157,62,26,0.12)] transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Breathtaking morning view of Mount Fuji crowned with fresh snow, tranquil Lake Kawaguchiko reflection in morning fog, serene Japanese pines framing foreground, delicate pale peach and lilac sunrise skies, peaceful atmospheric photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvONduYlBL-GnTZJL1fzKfOmzte2WVe_nTcIAm1ziJOTyX6KBysxxEBaOujdzjCpRGhHRkvEY4wEVbzpbiGfaMze9DGeMze2CDjE1DW5jthzuKPtdHMk4Fo55Cl5GrwcFugGGWg5V1JzSHxM8cLKBeySZVxla_-LraOCRKprnW7aIHlVz_hYL9MTD3Ahnp6bS5FVGZl9PcFdkJkDJgAP9P6Pv946Jlo3pybfHjx4D-IeFpI28u3g6eHg"/>
+<!-- Scrim -->
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/85 via-transparent to-black/20"></div>
+<!-- Top Tag & Bookmark -->
+<div class="absolute inset-x-0 top-0 p-space-sm flex justify-between items-center">
+<span class="bg-surface-container-lowest/80 backdrop-blur-md px-2.5 py-1 rounded-full font-label-sm text-label-sm text-on-surface">Visual Inspiration</span>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface flex items-center justify-center shadow-md hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+<!-- Floating Actions on hover -->
+<div class="absolute inset-x-0 bottom-16 px-space-sm flex items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary font-label-md text-label-md shadow-md hover:bg-primary hover:text-on-primary transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">push_pin</span> Pin to Board
+              </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-label-md text-label-md shadow-md hover:bg-secondary hover:text-on-secondary transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">map</span> View Spot
+              </button>
+</div>
+<!-- Bottom Information -->
+<div class="absolute bottom-0 inset-x-0 p-space-md text-on-primary">
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-primary-fixed">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[13px]">schedule</span> 06:14 AM</span>
+<span>•</span>
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[13px]">location_on</span> Fujiyoshida</span>
+</div>
+<h3 class="font-title-md text-title-md drop-shadow-sm mt-0.5">Lake Kawaguchiko Sunrise Mist</h3>
+</div>
+</div>
+<div class="p-space-md flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">wb_sunny</span>
+<span>Clear forecast recommended</span>
+</span>
+<span class="font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded-full">Spot #3</span>
+</div>
+</div>
+<!-- CARD: Map Card: Naoshima Loop & E-Bike -->
+<div class="group relative rounded-3xl bg-surface-container-lowest overflow-hidden shadow-[0_8px_24px_rgba(32,30,40,0.04)] hover:shadow-[0_16px_36px_rgba(104,86,134,0.12)] transition-all duration-300">
+<!-- Embedded Map -->
+<div class="w-full h-44 bg-cover bg-center relative" data-location="Naoshima, Kagawa, Japan" style="">
+<div class="absolute top-space-sm left-space-sm bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded-full flex items-center gap-1 font-label-sm text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">directions_bike</span>
+<span>14.2 km Loop Trail</span>
+</div>
+<div class="absolute bottom-space-sm right-space-sm bg-surface-container-lowest/90 backdrop-blur-md px-2 py-0.5 rounded-md font-label-sm text-label-sm text-on-surface">
+              Seto Inland Sea
+            </div>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-on-surface">Naoshima Art Island Loop</h3>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Bike Booked</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Reserved 2x Panasonic E-Bikes at Miyanoura Port rental depot (09:00 pickup). Stops planned: Red Pumpkin, Chichu Museum, Benesse House.
+            </p>
+<div class="flex items-center justify-between pt-1 border-t-0 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">battery_charging_full</span>
+<span>65 km battery range</span>
+</span>
+<a class="text-primary hover:underline flex items-center gap-0.5 font-label-md text-label-md" href="#">
+<span>View Route</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- CARD: Food Note Memo -->
+<div class="rounded-3xl bg-[#F4F7EE] p-space-md shadow-[0_4px_16px_rgba(92,107,71,0.08)] flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-[#556938] font-bold uppercase tracking-wider">Culinary Bucket List</span>
+<span class="text-xl">🍵</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface font-semibold">Matcha Parfait at Nakamura Tokichi (Uji)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Order the Maruto Parfait served in a cold chilled bamboo tumbler. Also sample hand-ground ceremonial Koicha with seasonal mochi. Expect 20 min queue after 13:00.
+          </p>
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-sm text-label-sm text-[#556938]">Uji Main Shop (Byodoin)</span>
+<span class="font-label-sm text-label-sm bg-surface-container-lowest px-2 py-0.5 rounded-full text-on-surface-variant">★ 4.8</span>
+</div>
+</div>
+</div>
+<!-- ================= COLUMN 4 ================= -->
+<div class="flex flex-col gap-space-lg">
+<!-- CARD: JR Pass PDF Voucher Document Preview -->
+<div class="group relative rounded-3xl bg-surface-container-lowest p-space-lg shadow-[0_8px_24px_rgba(32,30,40,0.04)] hover:shadow-[0_16px_36px_rgba(104,86,134,0.12)] transition-all duration-300">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-xl bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Voucher Document</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-label-sm text-label-sm font-semibold">Status: Ready</span>
+</div>
+<div class="mt-space-md">
+<h3 class="font-title-md text-title-md text-on-surface">Japan Rail Pass 7-Day Exchange Order</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Official MCO Exchange Order for nationwide Shinkansen access across JR East and JR West networks.</p>
+</div>
+<!-- Document mock visual preview -->
+<div class="mt-space-md p-space-md bg-surface-container-low rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-12 bg-surface-container-lowest rounded-lg border-0 shadow-sm flex flex-col p-1 justify-between">
+<div class="w-4 h-1 bg-primary rounded"></div>
+<div class="space-y-1">
+<div class="w-full h-0.5 bg-surface-container-highest"></div>
+<div class="w-2/3 h-0.5 bg-surface-container-highest"></div>
+</div>
+<div class="w-full h-1 bg-secondary-fixed rounded"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">JR-Pass_Voucher_2025.pdf</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2.4 MB • Issued Sep 12</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+<div class="mt-space-md flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Must redeem in person at Narita Airport</span>
+<span class="text-primary font-medium">Valid: 90 Days</span>
+</div>
+</div>
+<!-- CARD: Omakase Reservation Sukiyabashi Jiro -->
+<div class="group relative rounded-3xl bg-surface-container-lowest p-space-lg shadow-[0_8px_24px_rgba(32,30,40,0.04)] hover:shadow-[0_16px_36px_rgba(157,62,26,0.12)] transition-all duration-300">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[18px]">restaurant</span>
+<span class="font-label-lg text-label-lg font-semibold uppercase tracking-wider">Dining Reservation</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Concierge</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Sukiyabashi Jiro Omakase</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Ginza, Tokyo • 2 Guests • Counter Seating</p>
+</div>
+<div class="mt-space-md grid grid-cols-2 gap-space-sm p-space-sm bg-surface-container-low rounded-2xl text-center">
+<div class="bg-surface-container-lowest p-space-xs rounded-xl shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Date</span>
+<p class="font-title-sm text-title-sm text-on-surface mt-0.5">Oct 19, 2025</p>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded-xl shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Time</span>
+<p class="font-title-sm text-title-sm text-on-surface mt-0.5">17:30 Slot</p>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm">
+            Strict arrival policy: Please arrive 15 minutes prior. Perfumes or strong fragrances are strictly prohibited at the counter.
+          </p>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-emerald-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Confirmed with Hotel</span>
+</span>
+<button class="p-1 rounded-full text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">edit_calendar</span>
+</button>
+</div>
+</div>
+<!-- CARD: Social / Instagram Curation Bookmark -->
+<div class="group relative rounded-3xl bg-surface-container-lowest overflow-hidden shadow-[0_8px_24px_rgba(32,30,40,0.04)] hover:shadow-[0_16px_36px_rgba(104,86,134,0.12)] transition-all duration-300">
+<div class="p-space-md flex items-center justify-between border-b-0">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">@tokyofinds</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Saved Reel</span>
+</div>
+<div class="relative w-full aspect-video overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cozy vintage clothing and record store in Shimokitazawa Tokyo with colorful retro jackets hanging on racks, vinyl records on display, warm ambient lighting, stylish indie aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7KoSb-gsfeaOACrY1bRjlru0HISle2jxkKlwwzd1FNih153EudOiqokCy3LzG_hft2IUoi_hsF51y20tqAt28luOsRLjph0SDiI1mJyhfnXTbej0OLATfIyK7AypmsIHktARFgtuuemZGw9cWAd5MFVXqYINMlrQtcVn5X3PQPJv5qvf0X0ghpmy6Qq1iKVNbo50EOxvbjk_lpEF_aC6K5zFL9sSEgTPItXvtQ86QvSQIp472DPWXaQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/75 via-transparent to-transparent"></div>
+<div class="absolute bottom-2 left-3 right-3 text-on-primary">
+<span class="font-label-sm text-label-sm text-primary-fixed">#Shimokitazawa</span>
+<p class="font-title-sm text-title-sm drop-shadow-sm line-clamp-1">10 hidden vintage shops in Shimokitazawa</p>
+</div>
+</div>
+<div class="p-space-md flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">3 Bookmarked locations</span>
+<button class="flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-on-secondary-fixed">
+<span>View List</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Bottom Canvas Helper / Quick Stats Dock -->
+<div class="sticky bottom-6 z-40 self-center bg-surface-container-lowest/90 backdrop-blur-xl border-0 shadow-[0_16px_36px_rgba(104,86,134,0.14)] rounded-full px-space-lg py-space-sm flex items-center gap-space-lg transition-transform hover:scale-[1.01]">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+<span class="font-label-md text-label-md text-on-surface">All references synced</span>
+</div>
+<div class="h-4 w-px bg-surface-container-highest"></div>
+<div class="flex items-center gap-space-md text-on-surface-variant font-label-md text-label-md">
+<span>8 Photos</span>
+<span>•</span>
+<span>4 Memos</span>
+<span>•</span>
+<span>3 Bookings</span>
+<span>•</span>
+<span>1 Map</span>
+</div>
+<div class="h-4 w-px bg-surface-container-highest"></div>
+<div class="flex items-center gap-1.5">
+<button class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[15px]">select_all</span>
+<span>Select</span>
+</button>
+<button class="flex items-center gap-1 px-3.5 py-1 rounded-full bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[15px]">add</span>
+<span>New</span>
+</button>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full bg-surface-container-low py-space-xl"><div class="w-full px-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant font-body-sm text-body-sm"><div class="flex items-center gap-space-sm"><span class="font-headline-sm text-headline-sm text-primary">DreamWeave</span><span class="text-on-surface-variant/40">•</span><span>A tactile sanctuary for mindful ambition and visual discovery</span></div><div class="flex items-center gap-space-lg"><a class="hover:text-primary transition-colors font-label-md text-label-md" href="#">Privacy Sanctuary</a><a class="hover:text-primary transition-colors font-label-md text-label-md" href="#">Canvas Shortcuts</a><a class="hover:text-primary transition-colors font-label-md text-label-md" href="#">Export Space</a><span class="text-on-surface-variant/50">© 2025 DreamWeave Inc.</span></div></div></footer>

@@ -1,0 +1,462 @@
+<header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-space-lg flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md"><img alt="DreamWeave" class="h-8 w-auto object-contain" src="/logo.svg"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">DreamWeave</span><span class="font-label-sm text-label-sm text-secondary tracking-wider uppercase mt-space-xs">Spaces &amp; Canvas</span></div></div><div class="flex-1 max-w-2xl mx-auto flex items-center gap-space-sm bg-surface-container-lowest/90 px-space-md py-space-xs rounded-full shadow-[0_2px_12px_rgba(104,86,134,0.06)]"><span class="material-symbols-outlined text-secondary text-[20px]">search</span><input class="w-full bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/60" placeholder="Search dreams, notes, moodboards, or tags..." type="text"/><div class="flex items-center gap-space-xs"><span class="px-space-sm py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">#travel</span><span class="px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">#2025</span><div class="flex items-center px-space-xs py-0.5 rounded-md bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm ml-space-xs"><span class="text-[10px]">⌘K</span></div></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant">4 Active</span></div><button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary transition-all"><span class="material-symbols-outlined text-[16px]">auto_awesome</span><span class="font-label-md text-label-md">DreamAI</span></button><button class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant flex items-center justify-center transition-colors relative"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></span></button><div class="flex items-center gap-space-xs pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_2px_8px_rgba(157,62,26,0.15)]" src="https://lh3.googleusercontent.com/aida/AEtjO1WR2gzuLL0HHB8w_ompq7akFfXQ1wHnl0LLWl3Y8SrgOlDtWSf9_AvwOthr-MbsPTZ6q-12mlL4paLeuPeclASX9758qO0X1bxdt2qvdCJ3bC8fkpD7OaBosxBLC1Jh_naVWPw1PJEOvpyIIghs5fKxQYENlNadxAV-hEHLLl607CxweixzoR78Rzyy7PrL5RT9-uzuNxyy9IJhHjNfoHvqSynmCYkGeTpub3cn6X9_01CaFdK8-OHamSTr"/></div></div></div><div class="w-full px-space-lg flex items-center justify-between bg-surface-container-low/60 backdrop-blur-md"><div class="flex items-center gap-space-md py-space-xs"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high font-label-md text-label-md text-on-surface-variant"><span class="material-symbols-outlined text-[15px]">folder_special</span><span>Space: Japan Trip ✈️</span></div><nav class="flex items-center gap-space-xs" data-active-classes="bg-surface-container-lowest text-primary font-title-sm shadow-[0_2px_8px_rgba(0,0,0,0.04)] rounded-full"><a class="px-space-md py-1.5 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="japan-trip-overview" href="/space">Overview</a><a class="px-space-md py-1.5 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="japan-trip-content" href="/content">Content</a><a class="px-space-md py-1.5 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="japan-trip-vision-board" href="/vision">Vision Board</a><a class="px-space-md py-1.5 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="japan-trip-plan" href="/plan">Plan</a><a class="px-space-md py-1.5 transition-all bg-surface-container-lowest text-primary font-title-sm shadow-[0_2px_8px_rgba(0,0,0,0.04)] rounded-full" data-path="japan-trip-ai-assistant" href="/ai">AI Assistant</a></nav></div><div class="flex items-center gap-space-xs"><button class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-all"><span class="material-symbols-outlined text-[16px]">ios_share</span>Share</button><button class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-all shadow-[0_4px_12px_rgba(157,62,26,0.2)]"><span class="material-symbols-outlined text-[16px]">add</span>Add Item</button></div></div></header><main class="w-full pt-32 bg-surface min-h-[calc(100vh-140px)]"><div class="flex flex-col w-full">
+<!-- Interactive Style Helpers -->
+<style>
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.04); }
+    }
+    .animate-dream-glow {
+      animation: pulseGlow 6s ease-in-out infinite;
+    }
+  </style>
+<!-- Top Ambient Context Ribbon -->
+<div class="w-full px-space-lg pt-space-md pb-space-sm bg-surface-container-low/70">
+<div class="w-full flex flex-wrap items-center justify-between gap-space-md">
+<!-- Title & State -->
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative flex items-center justify-center w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">auto_awesome</span>
+<span class="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-primary ring-2 ring-surface"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">Dream AI · Deep Space Context: Japan Trip ✈️</span>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Co-Creator Engine v3.4</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Live neural workspace bridging 21 raw fragments into a structured journey</span>
+</div>
+</div>
+<!-- Active Context Pills -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-lowest shadow-sm text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[15px] text-secondary">push_pin</span>
+<span>18 Saved Pins</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-lowest shadow-sm text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[15px] text-tertiary">confirmation_number</span>
+<span>3 Confirmed Tickets</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-lowest shadow-sm text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[15px] text-primary">savings</span>
+<span>$2,400 Budget Target</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-lowest shadow-sm text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[15px] text-secondary">group</span>
+<span>Elena, Kenji, Maya</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary AI Studio Workspace (3 Columns) -->
+<div class="w-full px-space-lg py-space-lg grid grid-cols-12 gap-space-lg items-start">
+<!-- 1. LEFT COLUMN: Smart Prompts & Modes (Col 1-3, 25%) -->
+<div class="col-span-12 lg:col-span-3 flex flex-col gap-space-lg">
+<!-- Studio Modes & Focus -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-[0_4px_20px_rgba(104,86,134,0.05)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Synthesis Modes</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Tactile Prompts</span>
+</div>
+<!-- Mode Pills Scrolling / Wrapping -->
+<div class="flex flex-wrap gap-1.5">
+<button class="px-space-md py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-transform active:scale-95 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">flight_takeoff</span>
+<span>Itinerary Gen</span>
+</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container-high hover:bg-secondary-fixed text-on-surface font-label-md text-label-md transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">lightbulb</span>
+<span>Ideation</span>
+</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container-high hover:bg-secondary-fixed text-on-surface font-label-md text-label-md transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">palette</span>
+<span>Moodboard</span>
+</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container-high hover:bg-secondary-fixed text-on-surface font-label-md text-label-md transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-error">troubleshoot</span>
+<span>Gap Check</span>
+</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container-high hover:bg-secondary-fixed text-on-surface font-label-md text-label-md transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">payments</span>
+<span>Budget</span>
+</button>
+</div>
+</div>
+<!-- Quick Action Cards (Triggerable Prompts) -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface">Suggested AI Moves</span>
+<span class="font-label-sm text-label-sm text-secondary">Auto-calculated</span>
+</div>
+<!-- Card 1 -->
+<div class="group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-300 rounded-2xl p-space-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md flex flex-col gap-space-xs relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="w-7 h-7 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[16px]">route</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed">Pins Aware</span>
+</div>
+<p class="font-title-sm text-title-sm text-on-surface pt-1 group-hover:text-primary transition-colors">Generate 5-day route based on 18 saved pins</p>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Clusters Shibuya, Yanaka, and Kyoto temples with train transfers</span>
+<div class="flex items-center gap-1 pt-1 text-primary font-label-md text-label-md">
+<span>Run synthesis</span>
+<span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-300 rounded-2xl p-space-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md flex flex-col gap-space-xs relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="w-7 h-7 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[16px]">event_busy</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">High Urgency</span>
+</div>
+<p class="font-title-sm text-title-sm text-on-surface pt-1 group-hover:text-primary transition-colors">Spot missing reservations (Kyoto Ryokan &amp; Shinkansen)</p>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Identifies 2 gap nights between Tokyo checkout &amp; Osaka Airbnb</span>
+<div class="flex items-center gap-1 pt-1 text-primary font-label-md text-label-md">
+<span>Review gaps</span>
+<span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-300 rounded-2xl p-space-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md flex flex-col gap-space-xs relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="w-7 h-7 rounded-full bg-secondary-fixed-dim flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[16px]">storefront</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed">Moodboard Echo</span>
+</div>
+<p class="font-title-sm text-title-sm text-on-surface pt-1 group-hover:text-primary transition-colors">Suggest hidden gems near Gion based on visual board</p>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Finds ceramic tea houses matching your misty wabi-sabi palette</span>
+<div class="flex items-center gap-1 pt-1 text-primary font-label-md text-label-md">
+<span>Explore gems</span>
+<span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-300 rounded-2xl p-space-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md flex flex-col gap-space-xs relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[16px]">wb_twilight</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant">Weather Aware</span>
+</div>
+<p class="font-title-sm text-title-sm text-on-surface pt-1 group-hover:text-primary transition-colors">Draft packing list for November Tokyo &amp; Hakone weather</p>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Forecasts 14°C days, light layering, onsen slip-ons, and pocket WiFi</span>
+<div class="flex items-center gap-1 pt-1 text-primary font-label-md text-label-md">
+<span>Generate list</span>
+<span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Quick Co-Pilot Tip Banner -->
+<div class="p-space-md rounded-2xl bg-secondary-fixed/50 text-on-secondary-fixed flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-secondary mt-0.5">tips_and_updates</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm">Collaborative Context</span>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed-variant mt-0.5">
+            Elena just added 3 coffee shops in Yanaka. Dream AI has refreshed transit timing automatically.
+          </p>
+</div>
+</div>
+</div>
+<!-- 2. CENTER COLUMN: Visual AI Working Board / Output Canvas (Col 4-9, 50%) -->
+<div class="col-span-12 lg:col-span-6 flex flex-col gap-space-lg">
+<!-- Header of Active AI Output -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_8px_30px_rgba(104,86,134,0.06)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between border-b pb-space-sm border-surface-variant/40">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-wide">Live Synthesis Session</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span>Generated 2 mins ago</span>
+<span>•</span>
+<button class="hover:text-primary transition-colors flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+              Regenerate
+            </button>
+</div>
+</div>
+<!-- Headline & AI Premise -->
+<div class="flex flex-col gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">Itinerary Optimization: Shinjuku &amp; Shibuya Gastronomy</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            I examined your 4 vintage dining pins, Kenji’s preference for authentic noodles, and your flight landing at Haneda at 16:30. Here is an ergonomic sequence for Day 1 evening that eliminates 42 minutes of backtracking.
+          </p>
+</div>
+<!-- Proposed Visual Cards Stack -->
+<div class="flex flex-col gap-space-md pt-space-xs">
+<!-- Card 1: Fuunji Ramen -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col sm:flex-row gap-space-md hover:shadow-md transition-shadow">
+<div class="w-full sm:w-44 h-36 rounded-xl overflow-hidden relative flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Steaming rich bowl of Japanese dipping tsukemen ramen with thick noodles, nori seaweed, soft boiled egg, and sliced chashu pork in a dark rustic wooden noodle bar with warm pendant lighting and terracotta bowls." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw4cI8jZ-AagNtHNY-oHjC1eJ4nRgGUz96prgVRGlEgXB-zdTY3X7mb4UnNo_YIZBMSoa9aX6lXrrXDT8qiv_KyGPurvIIcbOaM7DsAlzlL8LOhutOeOEx1VzZkogAaqRsWLyb1hVlbfGwQhSI6CyHfgon5pJx6e5Sv9h3sUXCv-oYI_3gnejS5ch_Rl01Y9Ygb505qf_h9jDbEmv5CfICc1h-QS8niYFbGBlPvyVONMAnZJKG2TdijA"/>
+<div class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px] text-tertiary">star</span>
+<span>4.8 (1,420)</span>
+</div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-secondary-fixed/90 backdrop-blur-md text-on-secondary-fixed font-label-sm text-label-sm">
+                Day 1 · 20:00
+              </div>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface">Fuunji Tsukemen Ramen</span>
+<span class="font-label-sm text-label-sm text-primary bg-primary-fixed px-2 py-0.5 rounded-full">Matches Pin #04</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Intense fish-and-chicken broth with springy handmade noodles. Located a 7-min stroll from your hotel base in Shinjuku South.
+                </p>
+<div class="flex items-center gap-space-sm mt-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-secondary">schedule</span>~18m queue at 20:15</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-tertiary">currency_yen</span>¥1,100</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs mt-3">
+<button class="flex items-center gap-1 px-space-md py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined text-[15px]">add_task</span>
+<span>Add to Day 1 Dinner</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md transition-all">
+<span class="material-symbols-outlined text-[15px]">swap_horiz</span>
+<span>Swap Alternative</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Golden Gai Map Route -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col sm:flex-row gap-space-md hover:shadow-md transition-shadow">
+<div class="w-full sm:w-44 h-36 rounded-xl overflow-hidden relative flex-shrink-0">
+<div class="w-full h-full bg-cover bg-center rounded-xl" data-location="Golden Gai, Shinjuku, Tokyo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDoRf2EBiNvqU5KsWX64Ni0yw4xdHd90F-fdenUcUORz5UYXuYfTYydHqcjB5z7JYgrB7ycgkSWc7ZTKBXbGUP4UzJZsCQ9PblAjuUou9-ONXHEf-eHiXXtNKHJsd_ps14a5jygDYwuX65O3n-fNquQXS35Cwbq1PsWNCT_yxriPHj7mDtblD_20I6bm2r-Cs7CXOJud1IZzgNVrdrnET-vf14TSSXSzYRiZivDatJLaXbFxuRjcinx6g')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 via-transparent to-transparent flex items-end p-2">
+<span class="font-label-sm text-label-sm text-surface-container-lowest font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">map</span> 3-Bar Alleys
+                </span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface">Golden Gai Micro-Bar Walking Route</span>
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-fixed px-2 py-0.5 rounded-full">Atmospheric</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Curated route passing Albatross, Bar Darling, and Open Book. Hand-selected for jazz vinyl, lemon sours, and welcoming non-Japanese signage.
+                </p>
+<div class="flex items-center gap-space-sm mt-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">directions_walk</span>400m loop</span>
+<span>•</span>
+<span>Nightcap 21:30 - 23:00</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs mt-3">
+<button class="flex items-center gap-1 px-space-md py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined text-[15px]">playlist_add</span>
+<span>Add to Plan</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md transition-all">
+<span class="material-symbols-outlined text-[15px]">push_pin</span>
+<span>Pin to Vision Board</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Crucial Logistics Warning Note -->
+<div class="rounded-2xl p-space-md bg-tertiary-fixed/40 text-on-tertiary-fixed flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</div>
+<div class="flex-1 flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-tertiary-fixed">Logistics Alert: teamLab Planets (Day 3)</span>
+<span class="font-label-sm text-label-sm bg-tertiary/20 px-2 py-0.5 rounded-full">Voucher Scan #JP-881</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-tertiary-fixed-variant mt-1">
+                Extracted from your confirmed booking: Knee-deep water installations require bare feet. AI suggests wearing rolled trousers or shorts, and scheduling Toyosu Fish Market breakfast directly beforehand at 08:30.
+              </p>
+<div class="flex items-center gap-space-xs mt-2">
+<button class="text-tertiary font-label-md text-label-md hover:underline flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">edit_calendar</span>
+                  Adjust Day 3 morning timing
+                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Visual Composer Bar (Sticky / Grounded Input) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-[0_6px_28px_rgba(104,86,134,0.09)] flex flex-col gap-space-sm">
+<!-- Quick Attachment Chips -->
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">attach_file</span> Attach context:
+            </span>
+<button class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[12px]">calendar_month</span> Day 2 Schedule
+            </button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[12px]">photo_library</span> Tokyo Vintage Board
+            </button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[12px]">flight</span> ANA Flight #NH107
+            </button>
+</div>
+<span class="font-label-sm text-label-sm text-secondary hidden sm:inline-block">Tab to autocomplete</span>
+</div>
+<!-- Input Chamber -->
+<div class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-2.5 rounded-xl">
+<span class="material-symbols-outlined text-secondary text-[22px]">auto_awesome</span>
+<input class="w-full bg-transparent border-none outline-none font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/70" placeholder="Ask Dream AI anything about Japan Trip or propose a schedule tweak..." type="text"/>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="w-8 h-8 rounded-full hover:bg-surface-container-high text-on-surface-variant flex items-center justify-center transition-colors" title="Voice dictation">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+</button>
+<button class="w-8 h-8 rounded-full hover:bg-surface-container-high text-on-surface-variant flex items-center justify-center transition-colors" title="Upload ticket/image">
+<span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
+</button>
+<button class="flex items-center gap-1 px-space-md py-2 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-all shadow-[0_4px_12px_rgba(157,62,26,0.2)]">
+<span>Generate</span>
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. RIGHT COLUMN: Live Context & Staging Sandbox (Col 10-12, 25%) -->
+<div class="col-span-12 lg:col-span-3 flex flex-col gap-space-lg">
+<!-- Staged Changes Section (Actionable Sandbox) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-[0_4px_20px_rgba(104,86,134,0.05)] flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-title-sm text-title-sm text-on-surface">Staged in Sandbox</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed">2 Ready</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Items accepted from this session waiting for space commit.
+        </p>
+<!-- Staged Items List -->
+<div class="flex flex-col gap-space-xs pt-1">
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-primary text-[18px]">ramen_dining</span>
+<div class="flex flex-col truncate">
+<span class="font-label-md text-label-md text-on-surface truncate">Fuunji Ramen</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Day 1 · 20:00 Dinner</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-1">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-secondary text-[18px]">local_bar</span>
+<div class="flex flex-col truncate">
+<span class="font-label-md text-label-md text-on-surface truncate">Golden Gai Walk</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Day 1 · 21:30 Late Night</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-1">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+<!-- 1-Click Apply All Action -->
+<button class="w-full mt-space-xs py-2 rounded-full bg-secondary text-on-secondary font-label-md text-label-md hover:bg-secondary/90 transition-all shadow-sm flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">done_all</span>
+<span>Apply All to Itinerary &amp; Board</span>
+</button>
+</div>
+<!-- Referenced Pins in this AI Response (Visual Collage Thumbnails) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-[0_4px_20px_rgba(104,86,134,0.05)] flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Referenced Pins</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">4 Pins Used</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Source moodboards &amp; saved places pulled by the reasoning model.
+        </p>
+<!-- 2x2 Image Grid -->
+<div class="grid grid-cols-2 gap-space-xs pt-1">
+<!-- Pin 1 -->
+<div class="group relative rounded-xl overflow-hidden aspect-square bg-surface-container cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Traditional Kyoto Machiya wooden townhouse alley with lantern glowing in twilight, stone pavement, and deep warm terracotta tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIBT1ecm1KB0P-sek7wAhS_IdgD-XFnM9P7vIUfmDyJbT3e0j8qS1z2FWTK2LlNRNiU_kKKZAhq2VjgqYKoJXFoU6CZ7-d1608KRjWtjmf3094HgjoR3d7oLzZADq46fC_ot4xeV8w-h8UnAZSSPMjPAVuzE2XkAoS0yEFSYHqMDN22K3X-677HZNKlDBEh-CAXGaBdAnEwTaU3HC2q8H9BldMf37p7U95JXsAlUhwNZ1uznNyqbtveA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 via-transparent to-transparent flex items-end p-2 opacity-90 group-hover:opacity-100">
+<span class="font-label-sm text-label-sm text-surface-container-lowest truncate">#04 Gion Alley</span>
+</div>
+</div>
+<!-- Pin 2 -->
+<div class="group relative rounded-xl overflow-hidden aspect-square bg-surface-container cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Aesthetic Japanese matcha ceremony tea cup with whisk and bamboo ladle on warm parchment paper textured table with sunlight rays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_d9kFrdg70egV9OCo-d7Zrzetlqy0Uii55W8Nxwg5pZ8LaFrGC2XjskLJ_hnaHFz0imXKUX8NbgtgwgCZd0LhjkFjaam3r6Mnrl-t9rwboZ4MviR8zNR9Kg6XmW85mKvfYuu3zv_wGT9zmovozfKng0Qz4hSgwC6fwQshXVI0z43-K98_ml5FbwNh5znom6GMyL7erOvbKoWh70albD83aO6X0-fa3NbQAuHmKtlu1CAcYVPmwcBNtA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 via-transparent to-transparent flex items-end p-2 opacity-90 group-hover:opacity-100">
+<span class="font-label-sm text-label-sm text-surface-container-lowest truncate">#12 Uji Green Tea</span>
+</div>
+</div>
+<!-- Pin 3 -->
+<div class="group relative rounded-xl overflow-hidden aspect-square bg-surface-container cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Vintage Tokyo retro neon signs at blue hour dusk reflected on wet asphalt road, nostalgic lavender and warm amber glow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSnxTut6xtsSiqtBLPpM6-sJ_5VlMP17TUA-L9Rsp59IFpNXb1wwEvcHrnSmNZYgAS0-7K30XjCP9CgGWz4pMYFp4hLtDBEzqSGD2KKzt3g2sr3IIJcQVwXvfRnqf_tyK7f__8UNwxhRtns-OJwTnvlubFDW4miLdXo9MuFQ4iQQL-FGbPjc8UpuwfOjgBQVCA-swAhaIcpg7uxM7mI8v2KTY-sRpz--T30ZxXh5bEl9fnSn0LQU05TA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 via-transparent to-transparent flex items-end p-2 opacity-90 group-hover:opacity-100">
+<span class="font-label-sm text-label-sm text-surface-container-lowest truncate">#09 Shinjuku Dusk</span>
+</div>
+</div>
+<!-- Pin 4 -->
+<div class="group relative rounded-xl overflow-hidden aspect-square bg-surface-container cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Sleek modern Japanese bullet train Shinkansen moving through autumn countryside with Mount Fuji in serene hazy background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsujM7WRUEpEalWspMp5gUZNzcV94zyQsWbNmftGdhoAOvrwxC6SVLSRThsTWNoz-kqcVEdrMUfsXeJOu1zhTgewWxXZLrwcl1zIuBbKa8I__Wai7Wc5Of9-k26EbgzslTcjEYYHxPew2WRwGpnoZtVjiVscCaqlYN_vEzl3I8-UVBpOBjnbg5VewvyApvBU_3Tc9CPvipe4u-qd3LApZd8Q3OFrIPW1OMQz3KCFaVVw1lrS7N3UPAmQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 via-transparent to-transparent flex items-end p-2 opacity-90 group-hover:opacity-100">
+<span class="font-label-sm text-label-sm text-surface-container-lowest truncate">#17 Tokaido Line</span>
+</div>
+</div>
+</div>
+<button class="w-full py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[15px]">collections</span>
+<span>Open Referenced Pins (4)</span>
+</button>
+</div>
+<!-- AI Memory & Preferences for Space -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-[0_4px_20px_rgba(104,86,134,0.05)] flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">psychology</span>
+<span class="font-title-sm text-title-sm text-on-surface">Learned Space Memory</span>
+</div>
+<button class="text-secondary hover:text-on-surface font-label-sm text-label-sm">Edit</button>
+</div>
+<div class="flex flex-col gap-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-[16px]">coffee</span>
+<span>Prefers artisanal matcha &amp; pour-over cafes</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-[16px]">train</span>
+<span>Favors scenic JR express trains over domestic flights</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low">
+<span class="material-symbols-outlined text-tertiary text-[16px]">bed</span>
+<span>Budget conscious on Tokyo city hotels, splurging on Kyoto Ryokan</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">schedule</span>
+<span>No morning events before 09:30 AM (Rest recovery)</span>
+</div>
+</div>
+</div>
+<!-- Live Token & Engine Telemetry -->
+<div class="p-space-md rounded-2xl bg-surface-container-high/60 text-on-surface-variant flex flex-col gap-1">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span>Active Context Window</span>
+<span class="text-on-surface font-semibold">14,280 / 32,000</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 44.6%;"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 text-right mt-0.5">DreamWeave Multi-modal Reasoning Ready</span>
+</div>
+</div>
+</div>
+<!-- Inline Micro-interactions Script -->
+
+</div></main><footer class="w-full bg-surface-container-low py-space-xl"><div class="w-full px-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant font-body-sm text-body-sm"><div class="flex items-center gap-space-sm"><span class="font-headline-sm text-headline-sm text-primary">DreamWeave</span><span class="text-on-surface-variant/40">•</span><span>A tactile sanctuary for mindful ambition and visual discovery</span></div><div class="flex items-center gap-space-lg"><a class="hover:text-primary transition-colors font-label-md text-label-md" href="#">Privacy Sanctuary</a><a class="hover:text-primary transition-colors font-label-md text-label-md" href="#">Canvas Shortcuts</a><a class="hover:text-primary transition-colors font-label-md text-label-md" href="#">Export Space</a><span class="text-on-surface-variant/50">© 2025 DreamWeave Inc.</span></div></div></footer>

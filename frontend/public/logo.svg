@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="dw-grad" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E87A5D"/>
+      <stop offset="50%" stop-color="#CA629B"/>
+      <stop offset="100%" stop-color="#7B61FF"/>
+    </linearGradient>
+    <filter id="soft-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#CA629B" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="50" cy="50" r="44" fill="url(#dw-grad)" opacity="0.12"/>
+  <path d="M28 62C28 46 40 34 56 34C68 34 76 42 76 54C76 66 66 74 54 74C40 74 34 66 34 54C34 42 44 26 62 26" stroke="url(#dw-grad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft-glow)"/>
+  <circle cx="68" cy="30" r="5" fill="#E87A5D"/>
+  <circle cx="26" cy="62" r="3.5" fill="#7B61FF"/>
+</svg>
